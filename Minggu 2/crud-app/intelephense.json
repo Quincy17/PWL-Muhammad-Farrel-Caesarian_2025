@@ -1,0 +1,8 @@
+{
+    "files": {
+        "include": [
+            "./app/**/*.php",
+            "./vendor/**/*.php"
+        ]
+    }
+}
