@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SalesController;
+use App\Http\Controllers\LevelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,15 +18,9 @@ use App\Http\Controllers\SalesController;
 |
 */
 
-
-Route::get('/', [HomeController::class, 'index']);
-
-//Route Prefix
-Route::prefix('category')->group(function () {
-    Route::get('/{category}', [ProductsController::class, 'showCategory']);
+Route::get('/', function () {
+    return view('welcome');
 });
 
-Route::get('/user/{id}/name/{name}', [UserController::class, 'showProfile']);
-
-Route::get('/sales', [SalesController::class, 'index']);
+Route::get('/level', [LevelController::class, 'index']);
 
