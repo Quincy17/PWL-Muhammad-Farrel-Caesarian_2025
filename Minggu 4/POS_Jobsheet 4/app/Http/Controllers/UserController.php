@@ -11,8 +11,8 @@ class UserController extends Controller
     public function index()
     { 
         // coba akses model UserModel
-        $user = UserModel::where('username','manager9')->firstOrFail();
-
+        $user = UserModel::where('level_id', 2)->count();
+        
         return view('user', ['data' => $user]);
     }
 }
