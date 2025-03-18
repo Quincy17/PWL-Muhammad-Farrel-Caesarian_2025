@@ -40,8 +40,18 @@ class KategoriSeeder extends Seeder
                 'kategori_kode' => 'KuKer',
                 'kategori_nama' => 'Kue Kering',
             ],
+            [
+                'kategori_id' => 6,
+                'kategori_kode' => 'CML',
+                'kategori_nama' => 'Cemilan',
+            ],
+            [
+                'kategori_id' => 7,
+                'kategori_kode' => 'MNR',
+                'kategori_nama' => 'Minuman Ringan',
+            ],
         ];
 
-        DB::table('m_kategori')->insert($data);
+        DB::table('m_kategori')->insertOrIgnore($data);
     }
 }
