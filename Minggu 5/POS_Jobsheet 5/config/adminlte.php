@@ -306,6 +306,11 @@ return [
             'topnav_right' => true,
         ],
         [
+            'text' => 'Kategori',
+            'url'  => 'kategori',
+            'topnav' => true, 
+        ],
+        [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
