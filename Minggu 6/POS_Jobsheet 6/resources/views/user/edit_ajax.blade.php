@@ -89,7 +89,6 @@
                  }
              },
              submitHandler: function(form) {
-                console.log("Form Submitted!")
                  $.ajax({
                      url: form.action,
                      type: form.method,
@@ -97,8 +96,8 @@
                      success: function(response) {
                          if (response.status) {
                             console.log(response)
-                             $('#modal-master').modal('hide');
-                             Swal.fire({
+                             $('#myModal').modal('hide');
+                             Swal.fire({    
                                  icon: 'success',
                                  title: 'Berhasil',
                                  text: response.message
