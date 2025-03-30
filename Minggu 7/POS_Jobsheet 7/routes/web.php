@@ -11,6 +11,10 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Auth;
 
 Route::pattern('id','[0-9]+');
+//Registrasi
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
 
 Route::get('/home', [AuthController::class, 'home'])->name('home');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
@@ -20,7 +24,13 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::middleware(['auth'])->group(function () { 
 
     Route::get('/', [WelcomeController::class, 'index']);
-    
+
+    //Semua bisa ke halaman dashboard
+    Route::middleware(['authorize:ADM,MNG,STF,KSR,CUS'])->group(function () {
+        Route::get('/dashboard', [WelcomeController::class, 'index']);
+    });
+
+
     //Hanya Admin yang bisa melihat Data Level
     Route::middleware(['authorize:ADM'])->group(function () {
         Route::get('/dashboard', [WelcomeController::class, 'dashboard']);
@@ -45,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     //Admin, Manager, Staff dan Kasir dapat melihat Data Barang
-     Route::middleware(['authorize:ADM,MNG,STF,KSR'])->group(function () {
+     Route::middleware(['authorize:ADM,MNG,STF,KSR,CUS'])->group(function () {
         Route::group(['prefix' => 'barang'], function () {
             Route::get('/dashboard', [WelcomeController::class, 'dashboard']);
             Route::get('/', [BarangController::class, 'index']);
