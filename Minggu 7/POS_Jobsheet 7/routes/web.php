@@ -8,16 +8,23 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 
 Route::pattern('id','[0-9]+');
 
-Route::get('home', [AuthController::class, 'home'])->name('home');
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::post('login', [AuthController::class, 'postlogin']);
-Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
+Route::get('/home', [AuthController::class, 'home'])->name('home');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'postlogin']);
+Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::middleware(['auth'])->group(function () { 
-        
+
+    Route::get('/', [WelcomeController::class, 'index']);
+    
+    Route::middleware(['authorize:ADM'])->group(function () {
+        Route::get('/dashboard', [WelcomeController::class, 'dashboard']);
+    });
+
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', [UserController::class, 'index']); // menampilkan halaman awal user
         Route::get('/create_ajax', [UserController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax

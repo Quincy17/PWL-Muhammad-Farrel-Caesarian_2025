@@ -10,6 +10,9 @@
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="{{ url('logout') }}" class="nav-link">Logout</a>
+      </li>
     </ul>
 
     <!-- Right navbar links -->
@@ -20,6 +23,7 @@
           <i class="fas fa-search"></i>
         </a>
         <div class="navbar-search-block">
+          
           <form class="form-inline">
             <div class="input-group input-group-sm">
               <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
