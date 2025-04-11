@@ -238,7 +238,7 @@ class KategoriController extends Controller
          return redirect('/');
      }
 
-     public function import()
+    public function import()
     {
         return view('kategori.import');
     }

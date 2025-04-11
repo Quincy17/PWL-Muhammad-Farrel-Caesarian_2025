@@ -5,6 +5,7 @@
     <div class="card-header">
     <h3 class="card-title">{{ $page->title }}</h3>
     <div class="card-tools">
+        <button onclick="modalAction('{{ url('/level/import') }}')" class="btn btn-info">Import Level</button>
         <a class="btn btn-primary " href="{{ url('level/create') }}">Tambah</a>
         <button onclick="modalAction('{{ url('level/create_ajax') }}')" class="btn  btn-success ">Tambah Ajax</button>
     </div>
