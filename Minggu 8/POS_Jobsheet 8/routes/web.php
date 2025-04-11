@@ -50,6 +50,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id}/edit', [LevelController::class, 'edit']);  
             Route::put("/{id}", [LevelController::class, 'update']);       
             Route::delete('/{id}', [LevelController::class, 'destroy']);
+            Route::get('/import', [LevelController::class, 'import']); // ajax form upload excel
+            Route::post('/import_ajax', [LevelController::class, 'import_ajax']); // ajax import excel
         });
         
     });
