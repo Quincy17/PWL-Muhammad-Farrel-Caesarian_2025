@@ -8,6 +8,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Models\SupplierModel;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,7 @@ Route::get('/home', [AuthController::class, 'home'])->name('home');
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'postlogin']);
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
-
+ 
 Route::middleware(['auth'])->group(function () { 
 
     Route::get('/', [WelcomeController::class, 'index']);
@@ -29,6 +30,9 @@ Route::middleware(['auth'])->group(function () {
     //Semua bisa ke halaman dashboard
     Route::middleware(['authorize:ADM,MNG,STF,KSR,CUS'])->group(function () {
         Route::get('/dashboard', [WelcomeController::class, 'index']);
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');   
+        Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
+        Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     });
 
 
