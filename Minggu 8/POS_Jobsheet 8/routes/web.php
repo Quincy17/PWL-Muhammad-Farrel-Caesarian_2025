@@ -94,6 +94,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/edit', [UserController::class, 'edit']); // menampilkan halaman form edit user
         Route::put('/{id}', [UserController::class, 'update']); // menyimpan perubahan data user
         Route::delete('/{id}', [UserController::class, 'destroy']); // menghapus data user
+        Route::get('/import', [UserController::class, 'import']); // ajax form upload excel
+        Route::post('/import_ajax', [UserController::class, 'import_ajax']); // ajax import excel
+        
     });
     }); 
     
@@ -114,6 +117,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/edit', [KategoriController::class, 'edit']);
         Route::put("/{id}", [KategoriController::class, 'update']);
         Route::delete('/{id}', [KategoriController::class, 'destroy']);
+        Route::get('/import', [KategoriController::class, 'import']); // ajax form upload excel
+        Route::post('/import_ajax', [KategoriController::class, 'import_ajax']); // ajax import excel
     });
     }); 
 
@@ -134,6 +139,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/edit', [SupplierController::class, 'edit']);
         Route::put("/{id}", [SupplierController::class, 'update']);
         Route::delete('/{id}', [SupplierController::class, 'destroy']);
+        Route::get('/import', [SupplierController::class, 'import']); // ajax form upload excel
+        Route::post('/import_ajax', [SupplierController::class, 'import_ajax']); // ajax import excel
     });
      }); 
 });
