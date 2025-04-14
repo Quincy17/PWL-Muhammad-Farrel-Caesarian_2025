@@ -9,7 +9,7 @@ class StokModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'm_stok'; // Nama tabel yang digunakan oleh model ini
+    protected $table = 't_stok'; // Nama tabel yang digunakan oleh model ini
     protected $primaryKey = 'stok_id'; // Primary key dari tabel yang digunakan
 
     protected $fillable = [
