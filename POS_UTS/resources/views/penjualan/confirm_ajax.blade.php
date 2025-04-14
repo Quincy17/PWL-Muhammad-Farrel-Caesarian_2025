@@ -39,10 +39,6 @@
             <td class="col-9">{{ $penjualan->penjualan_id }}</td>
           </tr>
           <tr>
-            <th class="text-right col-3">Penjual :</th>
-            <td class="col-9">{{ $penjualan->user->username }}</td>
-          </tr>
-          <tr>
             <th class="text-right col-3">Pembeli :</th>
             <td class="col-9">{{ $penjualan->pembeli }}</td>
           </tr>
