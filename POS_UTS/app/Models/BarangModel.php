@@ -18,4 +18,20 @@ class BarangModel extends Model
         'harga_beli',
         'harga_jual',
     ]; // Kolom-kolom yang dapat diisi secara massal
+
+    // Relasi ke model Kategori
+    public function kategori()
+    {
+        return $this->belongsTo(KategoriModel::class, 'kategori_id', 'kategori_id');
+    }
+    // Relasi ke model Stok
+    public function stok()
+    {
+        return $this->hasMany(StokModel::class, 'barang_id', 'barang_id');
+    }
+    // Relasi ke model Penjualan
+    public function penjualanDetail()
+    {
+        return $this->hasMany(PenjualanDetailModel::class, 'barang_id', 'barang_id');
+    }
 }

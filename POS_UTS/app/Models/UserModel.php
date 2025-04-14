@@ -18,4 +18,17 @@ class UserModel extends Model
         'nama',
         'password',
     ]; // Kolom-kolom yang dapat diisi secara massal
+
+    public function level(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
+        return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
+    }
+    // Relasi dengan tabel stok
+    public function stok()
+    {
+        return $this->hasMany(StokModel::class, 'user_id', 'user_id');
+    }
+    // Relasi dengan tabel penjualan
+    public function penjualan(){
+        return $this->hasMany(PenjualanModel::class, 'user_id', 'user_id');
+    }
 }

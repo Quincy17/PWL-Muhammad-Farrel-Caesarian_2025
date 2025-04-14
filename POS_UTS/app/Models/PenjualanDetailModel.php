@@ -17,4 +17,14 @@ class PenjualanDetailModel extends Model
         'jumlah',
         'harga',
     ]; // Kolom-kolom yang dapat diisi secara massal
+
+    public function barang()
+    {
+        return $this->belongsTo(BarangModel::class, 'barang_id', 'barang_id');
+    }
+
+    public function penjualan()
+    {
+        return $this->belongsTo(PenjualanModel::class, 'penjualan_id', 'penjualan_id');
+    }
 }

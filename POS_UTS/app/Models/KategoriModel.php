@@ -16,4 +16,9 @@ class KategoriModel extends Model
         'kategori_kode',
         'kategori_nama',
     ]; // Kolom-kolom yang dapat diisi secara massal
+
+    public function barang()
+    {
+        return $this->hasMany(BarangModel::class, 'kategori_id', 'kategori_id');
+    }
 }

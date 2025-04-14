@@ -17,4 +17,14 @@ class PenjualanModel extends Model
         'penjualan_kode',
         'penjualan_tanggal',
     ]; // Kolom-kolom yang dapat diisi secara massal
+
+    public function user()
+    {
+        return $this->hasMany(UserModel::class, 'user_id', 'user_id');
+    } // Relasi ke model User
+
+    public function detail()
+    {
+        return $this->hasMany(PenjualanDetailModel::class, 'penjualan_id', 'penjualan_id');
+    }
 }

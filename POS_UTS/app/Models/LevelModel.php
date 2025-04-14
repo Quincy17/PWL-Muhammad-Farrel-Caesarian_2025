@@ -16,4 +16,9 @@ class LevelModel extends Model
         'level_kode',
         'level_nama',
     ]; // Kolom-kolom yang dapat diisi secara massal
+
+    public function user()
+    {
+        return $this->hasMany(UserModel::class, 'level_id', 'level_id');
+    } // Relasi ke model User
 }
