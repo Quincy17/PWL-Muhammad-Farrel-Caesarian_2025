@@ -50,13 +50,18 @@ namespace App\Http\Controllers;
          return DataTables::of($stok)
              ->addIndexColumn()
              ->addColumn('aksi', function ($s) {
-                 $btn  = '<a href="' . url('/stok/' . $s->stok_id) . '" class="btn btn-info btn-sm">Detail</a> ';
-                 $btn .= '<a href="' . url('/stok/' . $s->stok_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
-                 $btn .= '<form class="d-inline-block" method="POST" action="' . url('/stok/' . $s->stok_id) . '">'
-                       . csrf_field()
-                       . method_field('DELETE')
-                       . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\');">Hapus</button>'
-                       . '</form>';
+                 //$btn  = '<a href="' . url('/stok/' . $s->stok_id) . '" class="btn btn-info btn-sm">Detail</a> ';
+                 //$btn .= '<a href="' . url('/stok/' . $s->stok_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a> ';
+                 //$btn .= '<form class="d-inline-block" method="POST" action="' . url('/stok/' . $s->stok_id) . '">'
+                   //    . csrf_field()
+                     //  . method_field('DELETE')
+                       //. '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin ingin menghapus data ini?\');">Hapus</button>'
+                       //. '</form>';
+                 //return $btn;
+
+                 $btn = '<button onclick="modalAction(\'' . url('/stok/' . $s->stok_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                 $btn .= '<button onclick="modalAction(\'' . url('/stok/' . $s->stok_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                 $btn .= '<button onclick="modalAction(\'' . url('/stok/' . $s->stok_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
                  return $btn;
              })
              ->rawColumns(['aksi'])
@@ -171,5 +176,40 @@ namespace App\Http\Controllers;
          } catch (\Illuminate\Database\QueryException $e) {
              return redirect('/stok')->with('error', 'Gagal menghapus data stok karena data masih terhubung dengan tabel lain');
          }
+     }
+
+     public function confirm_ajax(string $id)
+     {
+         $stok = StokModel::find($id);
+ 
+         return view('stok.confirm_ajax', ['stok' => $stok]);
+     }
+
+     public function delete_ajax(Request $request, $id)
+     {
+         // Mengecek apakah request dari ajax
+         if ($request->ajax() || $request->wantsJson()) {
+             $stok = StokModel::find($id);
+             if ($stok) {
+                 try {
+                     $stok->delete();
+                     return response()->json([
+                         'status' => true,
+                         'message' => 'Data berhasil dihapus'
+                     ]);
+                 } catch (\Illuminate\Database\QueryException $e) {
+                     return response()->json([
+                         'status' => false,
+                         'message' => 'Data tidak bisa dihapus'
+                     ]);
+                 }
+             } else {
+                 return response()->json([
+                     'status' => false,
+                     'message' => 'Data tidak ditemukan'
+                 ]);
+             }
+         }
+         return redirect('/');
      }
  }

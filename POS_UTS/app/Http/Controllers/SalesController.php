@@ -127,24 +127,56 @@ class SalesController extends Controller
         }
     }
 
-    
-
     public function list(Request $request)
     {
         $data = PenjualanModel::with('user')->orderBy('penjualan_id', 'ASC');
         
         return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($row) {
-                $show = '<a href="' . url("penjualan/{$row->penjualan_id}") . '" class="btn btn-sm btn-info">Detail</a> ';
-                $edit = '<a href="' . url("penjualan/{$row->penjualan_id}/edit") . '" class="btn btn-sm btn-warning">Edit</a> ';
-                $delete = '<form action="' . url("penjualan/{$row->penjualan_id}") . '" method="POST" class="d-inline" onsubmit="return confirm(\'Yakin ingin menghapus?\')">' .
-                        csrf_field() . method_field('DELETE') .
-                        '<button class="btn btn-sm btn-danger">Hapus</button></form>';
-                return $show . $edit . $delete;
+            ->addColumn('aksi', function ($p) {
+                
+
+                $btn = '<button onclick="modalAction(\'' . url('/penjualan/' . $p->penjualan_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/penjualan/' . $p->penjualan_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/penjualan/' . $p->penjualan_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
+                 return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
 
+    public function confirm_ajax(string $id)
+     {
+         $penjualan = PenjualanModel::find($id);
+ 
+         return view('penjualan.confirm_ajax', ['penjualan' => $penjualan]);
+     }
+
+     public function delete_ajax(Request $request, $id)
+     {
+         // Mengecek apakah request dari ajax
+         if ($request->ajax() || $request->wantsJson()) {
+             $penjualan = PenjualanModel::find($id);
+             if ($penjualan) {
+                 try {
+                     $penjualan->delete();
+                     return response()->json([
+                         'status' => true,
+                         'message' => 'Data berhasil dihapus'
+                     ]);
+                 } catch (\Illuminate\Database\QueryException $e) {
+                     return response()->json([
+                         'status' => false,
+                         'message' => 'Data tidak bisa dihapus'
+                     ]);
+                 }
+             } else {
+                 return response()->json([
+                     'status' => false,
+                     'message' => 'Data tidak ditemukan'
+                 ]);
+             }
+         }
+         return redirect('/');
+     }
 }

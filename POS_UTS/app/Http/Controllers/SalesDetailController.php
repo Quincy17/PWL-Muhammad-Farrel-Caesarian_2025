@@ -18,10 +18,10 @@ class SalesDetailController extends Controller
             'title' => 'Daftar Detail Penjualan'
         ];
 
-        $data = PenjualanDetailModel::all();
+        $penjualanDetail = PenjualanDetailModel::all();
         $activeMenu = 'penjualan_detail';
 
-        return view('penjualan_detail.index', compact('breadcrumb', 'page', 'data', 'activeMenu'));
+        return view('penjualan_detail.index', compact('breadcrumb', 'page', 'penjualanDetail', 'activeMenu'));
     }
 
     public function create()
@@ -56,7 +56,7 @@ class SalesDetailController extends Controller
 
     public function show($id)
     {
-        $detail = PenjualanDetailModel::find($id);
+        $penjualanDetail = PenjualanDetailModel::find($id);
 
         $breadcrumb = (object)[
             'title' => 'Detail Data Penjualan',
@@ -69,12 +69,12 @@ class SalesDetailController extends Controller
 
         $activeMenu = 'penjualan_detail';
 
-        return view('penjualan_detail.show', compact('breadcrumb', 'page', 'detail', 'activeMenu'));
+        return view('penjualan_detail.show', compact('breadcrumb', 'page', 'penjualanDetail', 'activeMenu'));
     }
 
     public function edit($id)
     {
-        $detail = PenjualanDetailModel::find($id);
+        $penjualanDetail = PenjualanDetailModel::find($id);
 
         $breadcrumb = (object)[
             'title' => 'Edit Detail Penjualan',
@@ -87,7 +87,7 @@ class SalesDetailController extends Controller
 
         $activeMenu = 'penjualan_detail';
 
-        return view('penjualan_detail.edit', compact('breadcrumb', 'page', 'detail', 'activeMenu'));
+        return view('penjualan_detail.edit', compact('breadcrumb', 'page', 'penjualanDetail', 'activeMenu'));
     }
 
     public function update(Request $request, $id)
@@ -121,22 +121,55 @@ class SalesDetailController extends Controller
     }
 
     public function list(Request $request)
-{
-    $data = PenjualanDetailModel::all();
+    {
+        $data = PenjualanDetailModel::all();
 
-    return datatables()->of($data)
-        ->addIndexColumn()
-        ->addColumn('aksi', function ($row) {
-            $btn = '<a href="'.url('penjualan_detail/'.$row->detail_id).'" class="btn btn-sm btn-info">Lihat</a> ';
-            $btn .= '<a href="'.url('penjualan_detail/'.$row->detail_id.'/edit').'" class="btn btn-sm btn-warning">Edit</a> ';
-            $btn .= '<form method="POST" action="'.url('penjualan_detail/'.$row->detail_id).'" style="display:inline-block">
-                        '.csrf_field().method_field('DELETE').'
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Yakin hapus data?\')">Hapus</button>
-                    </form>';
-            return $btn;
-        })
-        ->rawColumns(['aksi'])
-        ->make(true);
-}
+        return datatables()->of($data)
+            ->addIndexColumn()
+            ->addColumn('aksi', function ($pd) {
+                
 
+                $btn = '<button onclick="modalAction(\'' . url('/penjualan_detail/' . $pd->detail_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/penjualan_detail/' . $pd->detail_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
+                $btn .= '<button onclick="modalAction(\'' . url('/penjualan_detail/' . $pd->detail_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
+                 return $btn;
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
+    public function confirm_ajax(string $id)
+     {
+         $penjualanDetail = PenjualanDetailModel::find($id);
+ 
+         return view('penjualan_detail.confirm_ajax', ['penjualanDetail' => $penjualanDetail]);
+     }
+
+     public function delete_ajax(Request $request, $id)
+     {
+         // Mengecek apakah request dari ajax
+         if ($request->ajax() || $request->wantsJson()) {
+             $penjualanDetail = PenjualanDetailModel::find($id);
+             if ($penjualanDetail) {
+                 try {
+                     $penjualanDetail->delete();
+                     return response()->json([
+                         'status' => true,
+                         'message' => 'Data berhasil dihapus'
+                     ]);
+                 } catch (\Illuminate\Database\QueryException $e) {
+                     return response()->json([
+                         'status' => false,
+                         'message' => 'Data tidak bisa dihapus'
+                     ]);
+                 }
+             } else {
+                 return response()->json([
+                     'status' => false,
+                     'message' => 'Data tidak ditemukan'
+                 ]);
+             }
+         }
+         return redirect('/');
+     }
 }
