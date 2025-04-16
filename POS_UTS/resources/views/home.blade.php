@@ -4,12 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Point of Sales</title>
+  <title>Crescense</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{ asset('/assets/img/favicon.png') }}" rel="icon">
+  <link href="{{ asset('/assets/img/logo2.png') }}" rel="icon">
   <link href="{{ asset('/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
   
 
@@ -45,7 +45,7 @@
       <a href={{ url('login') }} class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <img src="{{ asset('/assets/img/logo2.png') }}" alt="">
-        <h1 class="sitename">Point of Sales</h1>
+        <h1 class="sitename">Crescense</h1>
       </a>
 
       <nav id="navmenu" class="navmenu">
@@ -77,7 +77,7 @@
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <a class="btn-getstarted" href={{ url('login') }}>Get Started</a>
+      <a class="btn-getstarted" href={{ url('login') }}>Login</a>
 
     </div>
   </header>
@@ -94,18 +94,16 @@
             <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
               <div class="company-badge mb-4">
                 <i class="bi bi-gear-fill me-2"></i>
-                Working for your success
+                Make it Efficient!
               </div>
 
               <h1 class="mb-4">
-                Maecenas Vitae <br>
-                Consectetur Led <br>
-                <span class="accent-text">Vestibulum Ante</span>
+                Crescense <br>
+                <span class="accent-text">Point of Sales</span>
               </h1>
 
               <p class="mb-4 mb-md-5">
-                Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt.
-                Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna.
+                Merupakan sebuah sistem yang digunakan untuk memproses transaksi penjualan secara cepat, rinci, dan adaptif. Sehingga dapat meningkatkan efisiensi operasional, mempercepat proses transaksi, mengurangi kesalahan, dan meningkatkan pengalaman pelanggan.
               </p>
 
               <div class="hero-buttons">

@@ -12,6 +12,7 @@ use App\Http\Controllers\StokController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesDetailController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 
 Route::pattern('id','[0-9]+');
@@ -34,6 +35,9 @@ Route::middleware(['auth'])->group(function () {
     //Semua bisa ke halaman dashboard
     Route::middleware(['authorize:ADM,MNG,STF,KSR,CUS'])->group(function () {
         Route::get('/dashboard', [WelcomeController::class, 'index']);
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile');   
+        Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
+        Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
     });
 
 

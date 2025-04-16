@@ -18,6 +18,7 @@ class UserModel extends Authenticatable
         'username',
         'nama',
         'password',
+        'profile_picture',
     ]; // Kolom-kolom yang dapat diisi secara massal
 
     protected $hidden = ['password'];
