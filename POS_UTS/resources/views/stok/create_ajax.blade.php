@@ -21,16 +21,7 @@
                     <small id="error-barang_id" class="error-text form-text text-danger"></small>
                 </div>
                 <!-- Pilih User -->
-                <div class="form-group">
-                    <label>User</label>
-                    <select name="user_id" id="user_id" class="form-control" required>
-                        <option value="">- Pilih User -</option>
-                        @foreach ($user as $u)
-                            <option value="{{ $u->user_id }}">{{ $u->username }}</option>
-                        @endforeach
-                    </select>
-                    <small id="error-user_id" class="error-text form-text text-danger"></small>
-                </div>
+                
                 <!-- Pilih Supplier -->
                 <div class="form-group">
                     <label>Supplier</label>
@@ -68,10 +59,6 @@ $(document).ready(function() {
     $("#form-stok").validate({
         rules: {
             barang_id: {
-                required: true,
-                number: true
-            },
-            user_id: {
                 required: true,
                 number: true
             },

@@ -217,12 +217,10 @@ namespace App\Http\Controllers;
      public function create_ajax()
     {
         $barang = BarangModel::select('barang_id', 'barang_nama')->get();
-        $user = UserModel::select('user_id', 'username')->get();
         $supplier = SupplierModel::select('supplier_id', 'supplier_nama')->get(); // Ambil data supplier
 
         return view('stok.create_ajax', [
             'barang' => $barang,
-            'user' => $user,
             'supplier' => $supplier
         ]);
     }
@@ -234,7 +232,6 @@ namespace App\Http\Controllers;
 
             $rules = [
                 'barang_id'    => ['required', 'integer', 'exists:m_barang,barang_id'],
-                'user_id'      => ['required', 'integer', 'exists:m_user,user_id'],
                 'supplier_id'  => ['required', 'integer', 'exists:m_supplier,supplier_id'], // validasi supplier
                 'stok_tanggal' => ['required', 'date'],
                 'stok_jumlah'  => ['required', 'integer', 'min:1'],
@@ -251,7 +248,10 @@ namespace App\Http\Controllers;
                 ]);
             }
 
-            StokModel::create($request->all());
+            $data = $request->all();
+            $data['user_id'] = auth()->id();
+
+            StokModel::create($data);
 
             return response()->json([
                 'status'  => true,
