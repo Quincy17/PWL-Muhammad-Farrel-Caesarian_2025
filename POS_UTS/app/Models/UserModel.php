@@ -4,8 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserModel extends Model
+class UserModel extends Authenticatable
 {
     use HasFactory;
 
@@ -19,6 +20,10 @@ class UserModel extends Model
         'password',
     ]; // Kolom-kolom yang dapat diisi secara massal
 
+    protected $hidden = ['password'];
+ 
+    protected $casts = ['password' => 'hashed'];
+
     public function level(): \Illuminate\Database\Eloquent\Relations\BelongsTo {
         return $this->belongsTo(LevelModel::class, 'level_id', 'level_id');
     }
@@ -30,5 +35,17 @@ class UserModel extends Model
     // Relasi dengan tabel penjualan
     public function penjualan(){
         return $this->hasMany(PenjualanModel::class, 'user_id', 'user_id');
+    }
+
+    public function getRoleName(): String{
+        return $this->level->level_nama;
+    }
+
+    public function hasRole ($role): bool{
+        return $this->level->level_kode == $role;
+    }
+
+    public function getRole (){
+        return $this->level->level_kode;
     }
 }

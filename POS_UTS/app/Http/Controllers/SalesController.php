@@ -8,6 +8,7 @@ use App\Models\UserModel;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 class SalesController extends Controller
 {
@@ -179,4 +180,95 @@ class SalesController extends Controller
          }
          return redirect('/');
      }
+
+     public function edit_ajax(string $id)
+    {
+        $penjualan = PenjualanModel::find($id);
+        $user = UserModel::select('user_id', 'nama')->get();
+
+        return view('penjualan.edit_ajax', [
+            'penjualan' => $penjualan,
+            'user' => $user,
+        ]);
+    }
+
+     public function update_ajax(Request $request, $id)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'penjualan_kode'    => ['required', 'string','max:10'],
+                'pembeli'  => ['required', 'string'], 
+                'penjualan_tanggal' => ['required', 'date'],
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'   => false,
+                    'message'  => 'Validasi gagal.',
+                    'msgField' => $validator->errors(),
+                ]);
+            }
+
+            $penjualan = PenjualanModel::find($id);
+            if ($penjualan) {
+                $penjualan->update($request->all());
+
+                return response()->json([
+                    'status'  => true,
+                    'message' => 'Data Penjualan berhasil diupdate.',
+                ]);
+            }
+
+            return response()->json([
+                'status'  => false,
+                'message' => 'Data tidak ditemukan.',
+            ]);
+        }
+    }
+    
+    public function create_ajax()
+    {
+        $user = UserModel::select('user_id','username')->get();
+        return view('penjualan.create_ajax',['user' => $user]);
+    }
+
+    // Simpan data stok baru
+    public function store_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+
+            $rules = [
+                'user_id'           => ['required', 'integer'],
+                'pembeli'           => ['required', 'string', 'max:100'],
+                'penjualan_kode'    => ['required', 'string', 'max:20', 'unique:t_penjualan,penjualan_kode'],
+                'penjualan_tanggal' => ['required', 'date'],
+            ];
+            
+
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'   => false,
+                    'message'  => 'Validasi gagal.',
+                    'msgField' => $validator->errors(),
+                ]);
+            }
+
+            PenjualanModel::create([
+                'user_id'           => $request->user_id,
+                'pembeli'           => $request->pembeli,
+                'penjualan_kode'    => $request->penjualan_kode,
+                'penjualan_tanggal' => $request->penjualan_tanggal,
+            ]);
+
+            return response()->json([
+                'status'  => true,
+                'message' => 'Data stok berhasil disimpan.',
+            ]);
+        }
+    }
 }
