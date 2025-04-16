@@ -11,13 +11,16 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SalesDetailController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 
 Route::pattern('id','[0-9]+');
+
+Route::get('/home', [HomeController::class, 'index']);
+
 //Registrasi
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
-
 
 Route::get('/home', [AuthController::class, 'home'])->name('home');
 Route::get('/login', [AuthController::class, 'login'])->name('login');

@@ -8,7 +8,10 @@
  use Illuminate\Support\Facades\Hash;
  use App\Models\UserModel;
  class AuthController extends Controller
- {
+ {  
+    public function home(){
+        return view('home');
+    }
      public function login()
      {
          if (Auth::check()) {
@@ -45,7 +48,7 @@
          $request->session()->invalidate();
          $request->session()->regenerateToken();
  
-         return redirect('login');
+         return redirect('home');
      }
 
      public function showRegistrationForm()
