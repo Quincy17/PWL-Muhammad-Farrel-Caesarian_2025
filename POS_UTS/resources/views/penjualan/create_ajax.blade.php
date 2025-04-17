@@ -15,18 +15,7 @@
                         class="form-control" required>
                     <small id="error-penjualan-kode" class="error-text form-text text-danger"></small>
                 </div>
-                <div class="form-group">
-                    <label>Username</label>
-                    <select class="form-control" id="user_id" name="user_id" required>
-                        <option value="">- Pilih User -</option>
-                        @foreach ($user as $users)
-                            <option value="{{ $users->user_id }}">{{ $users->username }}</option>
-                        @endforeach
-                    </select>
-                    @error('user_id')
-                        <small class="form-text text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
+                
                 <div class="form-group">
                     <label>Pembeli</label>
                     <input type="text" name="pembeli" id="pembeli" class="form-control" required>

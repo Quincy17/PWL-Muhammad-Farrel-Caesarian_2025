@@ -46,7 +46,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [WelcomeController::class, 'dashboard']);
         
         Route::group(['prefix' => 'level'], function () {
-            Route::get('/', [LevelController::class, 'index']);            
+            Route::get('/', [LevelController::class, 'index']); 
+            Route::get('/{id}/show_ajax', [LevelController::class, 'show_ajax']);           
             Route::get('/create_ajax', [LevelController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
             Route::post('/ajax', [LevelController::class, 'store_ajax']); // menyimpan data user baru Ajax
             Route::get('/{id}/edit_ajax', [LevelController::class, 'edit_ajax']); // menampilkan halaman form edit user Ajax
@@ -70,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/dashboard', [WelcomeController::class, 'dashboard']);
             Route::get('/', [BarangController::class, 'index']);
             Route::get('/create_ajax', [BarangController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
+            Route::get('/{id}/show_ajax', [BarangController::class, 'show_ajax']); // menampilkan halaman form tambah user Ajax
             Route::post('/ajax', [BarangController::class, 'store_ajax']); // menyimpan data user baru Ajax
             Route::get('/{id}/edit_ajax', [BarangController::class, 'edit_ajax']); // menampilkan halaman form edit user Ajax
             Route::put('/{id}/update_ajax', [BarangController::class, 'update_ajax']); // menyimpan perubahan data user Ajax
@@ -89,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['authorize:ADM,MNG'])->group(function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', [UserController::class, 'index']); // menampilkan halaman awal user
+        Route::get('/{id}/show_ajax', [UserController::class, 'show_ajax']);
         Route::get('/create_ajax', [UserController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
         Route::post('/ajax', [UserController::class, 'store_ajax']); // menyimpan data user baru Ajax
         Route::get('/{id}/edit_ajax', [UserController::class, 'edit_ajax']); // menampilkan halaman form edit user Ajax
@@ -109,6 +112,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['authorize:ADM,MNG,STF,KSR'])->group(function () {
     Route::group(['prefix' => 'kategori'], function () {
         Route::get('/', [KategoriController::class, 'index']);
+        Route::get('/{id}/show_ajax', [KategoriController::class, 'show_ajax']);
         Route::get('/create_ajax', [KategoriController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
         Route::post('/ajax', [KategoriController::class, 'store_ajax']); // menyimpan data user baru Ajax
         Route::get('/{id}/edit_ajax', [KategoriController::class, 'edit_ajax']); // menampilkan halaman form edit user Ajax
@@ -129,6 +133,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
     Route::group(['prefix' => 'supplier'], function () {
         Route::get('/', [SupplierController::class, 'index']);
+        Route::get('/{id}/show_ajax', [SupplierController::class, 'show_ajax']);
         Route::get('/create_ajax', [SupplierController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
         Route::post('/ajax', [SupplierController::class, 'store_ajax']); // menyimpan data user baru Ajax
         Route::get('/{id}/edit_ajax', [SupplierController::class, 'edit_ajax']); // menampilkan halaman form edit user Ajax
@@ -148,6 +153,7 @@ Route::middleware(['auth'])->group(function () {
      Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
      Route::group(['prefix' => 'stok'], function () {
          Route::get('/', [StokController::class, 'index']);
+         Route::get('/{id}/show_ajax', [StokController::class, 'show_ajax']);
          Route::get('/create_ajax', [StokController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
          Route::post('/ajax', [StokController::class, 'store_ajax']); // menyimpan data user baru Ajax
          Route::get('/{id}/edit_ajax', [StokController::class, 'edit_ajax']); // menampilkan halaman form edit user Ajax
@@ -167,6 +173,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['authorize:ADM,MNG,STF,CUS,KSR'])->group(function () {
      Route::group(['prefix' => 'penjualan'], function () {
          Route::get('/', [SalesController::class, 'index']);
+         Route::get('/{id}/show_ajax', [SalesController::class, 'show_ajax']);
          Route::get('/create_ajax', [SalesController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
          Route::post('/ajax', [SalesController::class, 'store_ajax']); // menyimpan data user baru Ajax
          Route::get('/{id}/edit_ajax', [SalesController::class, 'edit_ajax']); // menampilkan halaman form edit user Ajax
@@ -186,6 +193,7 @@ Route::middleware(['auth'])->group(function () {
      Route::middleware(['authorize:ADM,MNG,STF,CUS,KSR'])->group(function () {
      Route::group(['prefix' => 'penjualan_detail'], function () {
          Route::get('/', [SalesDetailController::class, 'index']);
+         Route::get('/{id}/show_ajax', [SalesDetailController::class, 'show_ajax']);
          Route::get('/create_ajax', [SalesDetailController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
          Route::post('/ajax', [SalesDetailController::class, 'store_ajax']); // menyimpan data user baru Ajax
          Route::get('/{id}/edit_ajax', [SalesDetailController::class, 'edit_ajax']); // menampilkan halaman form edit user Ajax

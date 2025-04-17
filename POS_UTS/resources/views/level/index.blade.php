@@ -65,6 +65,7 @@ $(document).ready(function() {
         },
         {
         data: "aksi",
+        className: "text-center",
         orderable: false,
         searchable: false
         }

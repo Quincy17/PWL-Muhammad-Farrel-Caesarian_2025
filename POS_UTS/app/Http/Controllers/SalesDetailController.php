@@ -122,7 +122,15 @@ class SalesDetailController extends Controller
 
     public function list(Request $request)
     {
-        $data = PenjualanDetailModel::all();
+        $data = PenjualanDetailModel::with(['barang', 'penjualan']);
+
+        if ($request->barang_id) {
+            $data->where('barang_id', $request->barang_id);
+        }
+
+        if ($request->penjualan_id) {
+            $data->where('penjualan_id', $request->penjualan_id);
+        }
 
         return datatables()->of($data)
             ->addIndexColumn()
@@ -171,5 +179,12 @@ class SalesDetailController extends Controller
              }
          }
          return redirect('/');
+     }
+
+     public function show_ajax(string $id)
+     {
+         $penjualanDetail = PenjualanDetailModel::find($id);
+ 
+         return view('penjualan_detail.show_ajax', ['penjualanDetail' => $penjualanDetail]);
      }
 }

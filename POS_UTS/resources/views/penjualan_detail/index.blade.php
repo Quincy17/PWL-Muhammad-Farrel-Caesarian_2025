@@ -22,7 +22,7 @@
                 <tr>
                     <th>No</th>
                     <th>ID Penjualan</th>
-                    <th>ID Barang</th>
+                    <th>Nama Barang</th>
                     <th>Harga</th>
                     <th>Jumlah</th>
                     <th>Aksi</th>
@@ -66,7 +66,7 @@ $(document).ready(function () {
                 searchable: true
             },
             {
-                data: 'barang_id',
+                data: 'barang.barang_nama',
                 orderable: true,
                 searchable: true
             },

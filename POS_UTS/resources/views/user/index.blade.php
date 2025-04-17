@@ -35,7 +35,14 @@
         </div>
         <table class="table table-bordered table-striped table-hover table-sm" id="table_user">
             <thead>
-                <tr><th>ID</th><th>Username</th><th>Nama</th><th>Level Pengguna</th><th>Aksi</th></tr>
+                <tr>
+                  <th>ID</th>
+                  <th>Foto Profil</th>
+                  <th>Username</th>
+                  <th>Nama</th>
+                  <th>Level Pengguna</th>
+                  <th>Aksi</th>
+                </tr>
             </thead>
         </table>
     </div>
@@ -74,6 +81,11 @@
               orderable: false,
               searchable: false
             },{
+              data: "profile_picture",
+              className: "text-center",
+              orderable: false,
+              searchable: false
+            },{
               data: "username",
               className: "",
               // orderable: true, jika ingin kolom ini bisa diurutkan
@@ -93,7 +105,7 @@
               searchable: false
             },{
               data: "aksi",
-              className: "",
+              className: "text-center",
               orderable: false,
               searchable: false
             }

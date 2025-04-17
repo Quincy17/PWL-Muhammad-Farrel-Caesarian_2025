@@ -1,3 +1,11 @@
+      <style>
+        #logout-btn{
+          color: red;
+        }
+        #logout-btn:hover{
+          color: rgb(81, 81, 81);
+        }
+      </style>
       <!-- Navbar -->
       <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
@@ -21,7 +29,7 @@
         <ul class="navbar-nav ml-auto">
           <!-- Navbar Search -->
           <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ url('logout') }}" class="nav-link" style="color:red">Logout</a>
+            <a href="{{ url('logout') }}" class="nav-link" id="logout-btn">Logout</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">

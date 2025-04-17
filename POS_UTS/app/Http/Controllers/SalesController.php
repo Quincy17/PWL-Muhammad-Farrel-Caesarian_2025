@@ -230,8 +230,7 @@ class SalesController extends Controller
     
     public function create_ajax()
     {
-        $user = UserModel::select('user_id','username')->get();
-        return view('penjualan.create_ajax',['user' => $user]);
+        return view('penjualan.create_ajax');
     }
 
     // Simpan data stok baru
@@ -240,7 +239,6 @@ class SalesController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
 
             $rules = [
-                'user_id'           => ['required', 'integer'],
                 'pembeli'           => ['required', 'string', 'max:100'],
                 'penjualan_kode'    => ['required', 'string', 'max:20', 'unique:t_penjualan,penjualan_kode'],
                 'penjualan_tanggal' => ['required', 'date'],
@@ -258,12 +256,12 @@ class SalesController extends Controller
                 ]);
             }
 
-            PenjualanModel::create([
-                'user_id'           => $request->user_id,
-                'pembeli'           => $request->pembeli,
-                'penjualan_kode'    => $request->penjualan_kode,
-                'penjualan_tanggal' => $request->penjualan_tanggal,
-            ]);
+            $data = $request->all();
+            $data['user_id'] = auth()->id();
+
+            PenjualanModel::create($data);
+
+
 
             return response()->json([
                 'status'  => true,
@@ -271,4 +269,11 @@ class SalesController extends Controller
             ]);
         }
     }
+
+    public function show_ajax(string $id)
+     {
+         $penjualan = PenjualanModel::find($id);
+ 
+         return view('penjualan.show_ajax', ['penjualan' => $penjualan]);
+     }
 }

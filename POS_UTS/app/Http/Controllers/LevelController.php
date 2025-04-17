@@ -269,4 +269,11 @@ class LevelController extends Controller
 
     return redirect('/');
     }
+
+    public function show_ajax(string $id)
+     {
+         $level = LevelModel::find($id);
+ 
+         return view('level.show_ajax', ['level' => $level]);
+     }
 }

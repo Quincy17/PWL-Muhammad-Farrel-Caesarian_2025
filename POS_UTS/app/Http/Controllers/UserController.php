@@ -147,7 +147,7 @@ class UserController extends Controller
 
     // Ambil data user dalam bentuk json untuk datatables
     public function list(Request $request){
-        $users = UserModel::select('user_id', 'username', 'nama', 'level_id')
+        $users = UserModel::select('user_id', 'username', 'nama', 'level_id','profile_picture')
             ->with('level');
 
          // Filter data berdasarkan level_id
@@ -159,6 +159,15 @@ class UserController extends Controller
 
             // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
             ->addIndexColumn()
+            ->addColumn('profile_picture', function ($user) {
+                if ($user->profile_picture) {
+                    // Asumsi gambarnya ada di public/uploads/profile_pictures/
+                    $url = asset('storage/profile_images/' . $user->profile_picture);
+                    return '<img src="'.$url.'" alt="Profile Picture" width="50" height="50" class="rounded-circle">';
+                } else {
+                    return '<span>-</span>';
+                }
+            })
             ->addColumn('aksi', function ($user) { // menambahkan kolom aksi
 
                 // $btn = '<a href="'.url('/user/' . $user->user_id).'" class="btn btn-info btnsm">Detail</a> ';
@@ -174,7 +183,7 @@ class UserController extends Controller
                 $btn .= '<button onclick="modalAction(\'' . url('/user/' . $user->user_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button> ';
                 return $btn;
             })
-            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
+            ->rawColumns(['profile_picture','aksi']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
     }
 
@@ -293,5 +302,12 @@ class UserController extends Controller
          }
  
          return redirect('/');
+     }
+
+     public function show_ajax(string $id)
+     {
+         $user = UserModel::find($id);
+ 
+         return view('user.show_ajax', ['user' => $user]);
      }
 }

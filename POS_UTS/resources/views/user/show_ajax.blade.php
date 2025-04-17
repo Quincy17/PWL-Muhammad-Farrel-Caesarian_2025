@@ -1,4 +1,4 @@
-@empty($barang)
+@empty($user)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -20,7 +20,7 @@
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Detail Data Barang</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Detail Data Pengguna</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -28,30 +28,27 @@
         <div class="modal-body">
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID Barang</th>
-                    <td>{{ $barang->barang_id }}</td>
+                    <th>ID Pengguna</th>
+                    <td>{{ $user->user_id }}</td>
                 </tr>
                 <tr>
-                    <th>Kategori Barang</th>
-                    <td>{{ $barang->kategori->kategori_nama }}</td>
+                    <th>Foto Pengguna</th>
+                    <td>
+                        <img src="{{ asset('storage/profile_images/' . $user->profile_picture) }}" alt="User tidak mempunyai Foto Profile" width="50" height="50" class="rounded-circle">
+                    </td>
                 </tr>
                 <tr>
-                    <th>Kode Barang</th>
-                    <td>{{ $barang->barang_kode }}</td>
+                    <th>Username Pengguna</th>
+                    <td>{{ $user->username }}</td>
                 </tr>
                 <tr>
-                    <th>Nama Barang</th>
-                    <td>{{ $barang->barang_nama }}</td>
+                    <th>Nama Pengguna</th>
+                    <td>{{ $user->nama }}</td>
                 </tr>
                 <tr>
-                    <th>Harga Beli</th>
-                    <td>Rp{{ number_format($barang->harga_beli, 0, ',', '.') }}</td>
+                    <th>Level Pengguna</th>
+                    <td>{{ $user->level->level_nama }}</td>
                 </tr>
-                <tr>
-                    <th>Harga Jual</th>
-                    <td>Rp{{ number_format($barang->harga_jual, 0, ',', '.') }}</td>
-                </tr>
-
             </table>
         </div>
         <div class="modal-footer">
