@@ -1,4 +1,4 @@
-@empty($user)
+@empty($penjualan)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -20,7 +20,7 @@
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Detail Data Pengguna</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Detail Data Stock Barang</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -28,26 +28,24 @@
         <div class="modal-body">
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID Pengguna</th>
-                    <td>{{ $user->user_id }}</td>
+                    <th>ID Penjualan</th>
+                    <td>{{ $penjualan->penjualan_id }}</td>
                 </tr>
                 <tr>
-                    <th>Foto Pengguna</th>
-                    <td>
-                        <img src="{{ $user->profile_picture ? asset('storage/profile_images/' . $user->profile_picture) : asset('storage/profile_images/anonymous.png') }}" alt="User tidak mempunyai Foto Profile" width="50" height="50" class="rounded-circle">
-                    </td>
+                    <th>Penjual</th>
+                    <td>{{ $penjualan->user->username }}</td>
                 </tr>
                 <tr>
-                    <th>Username Pengguna</th>
-                    <td>{{ $user->username }}</td>
+                    <th>Pembeli</th>
+                    <td>{{ $penjualan->pembeli }}</td>
                 </tr>
                 <tr>
-                    <th>Nama Pengguna</th>
-                    <td>{{ $user->nama }}</td>
+                    <th>Kode Penjualan</th>
+                    <td>{{ $penjualan->penjualan_kode }}</td>
                 </tr>
                 <tr>
-                    <th>Level Pengguna</th>
-                    <td>{{ $user->level->level_nama }}</td>
+                    <th>Tanggal Transaksi</th>
+                    <td>{{ $penjualan->penjualan_tanggal }}</td>
                 </tr>
             </table>
         </div>

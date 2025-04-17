@@ -20,7 +20,7 @@ class PenjualanModel extends Model
 
     public function user()
     {
-        return $this->hasMany(UserModel::class, 'user_id', 'user_id');
+        return $this->belongsTo(UserModel::class, 'user_id', 'user_id');
     } // Relasi ke model User
 
     public function detail()

@@ -317,7 +317,7 @@ namespace App\Http\Controllers;
     public function show_ajax(string $id)
      {
          $stok = StokModel::find($id);
- 
+        
          return view('stok.show_ajax', ['stok' => $stok]);
      }
 }

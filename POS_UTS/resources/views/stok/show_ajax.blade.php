@@ -1,4 +1,4 @@
-@empty($user)
+@empty($stok)
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -20,7 +20,7 @@
 <div id="modal-master" class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Detail Data Pengguna</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Detail Data Stock Barang</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -28,26 +28,28 @@
         <div class="modal-body">
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID Pengguna</th>
-                    <td>{{ $user->user_id }}</td>
+                    <th>ID Stock</th>
+                    <td>{{ $stok->stok_id }}</td>
                 </tr>
                 <tr>
-                    <th>Foto Pengguna</th>
-                    <td>
-                        <img src="{{ $user->profile_picture ? asset('storage/profile_images/' . $user->profile_picture) : asset('storage/profile_images/anonymous.png') }}" alt="User tidak mempunyai Foto Profile" width="50" height="50" class="rounded-circle">
-                    </td>
+                    <th>Nama Barang</th>
+                    <td>{{ $stok->barang->barang_nama }}</td>
                 </tr>
                 <tr>
-                    <th>Username Pengguna</th>
-                    <td>{{ $user->username }}</td>
+                    <th>Nama Pegawai</th>
+                    <td>{{ $stok->user->nama }}</td>
                 </tr>
                 <tr>
-                    <th>Nama Pengguna</th>
-                    <td>{{ $user->nama }}</td>
+                    <th>Nama Supplier</th>
+                    <td>{{ $stok->supplier->supplier_nama }}</td>
                 </tr>
                 <tr>
-                    <th>Level Pengguna</th>
-                    <td>{{ $user->level->level_nama }}</td>
+                    <th>Jumlah Stock Barang</th>
+                    <td>{{ $stok->stok_jumlah }}</td>
+                </tr>
+                <tr>
+                    <th>Tanggal Stock Barang</th>
+                    <td>{{ \Carbon\Carbon::parse($stok->stok_tanggal)->locale('id')->translatedFormat('d F Y \ H:i:s') }}</td>
                 </tr>
             </table>
         </div>

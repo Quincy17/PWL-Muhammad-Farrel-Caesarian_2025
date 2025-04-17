@@ -272,8 +272,8 @@ class SalesController extends Controller
 
     public function show_ajax(string $id)
      {
-         $penjualan = PenjualanModel::find($id);
- 
+         $penjualan = PenjualanModel::with('user')->find($id);
+        
          return view('penjualan.show_ajax', ['penjualan' => $penjualan]);
      }
 }

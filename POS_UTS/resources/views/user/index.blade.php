@@ -37,7 +37,7 @@
             <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Foto Profil</th>
+                  {{-- <th>Foto Profil</th> --}}
                   <th>Username</th>
                   <th>Nama</th>
                   <th>Level Pengguna</th>
@@ -80,12 +80,13 @@
               className: "text-center",
               orderable: false,
               searchable: false
-            },{
-              data: "profile_picture",
-              className: "text-center",
-              orderable: false,
-              searchable: false
-            },{
+            }//,{
+            //   data: "profile_picture",
+            //   className: "text-center",
+            //   orderable: false,
+            //   searchable: false
+            // }
+            ,{
               data: "username",
               className: "",
               // orderable: true, jika ingin kolom ini bisa diurutkan
