@@ -19,15 +19,13 @@
             <div class="alert alert-danger">{{ session('error') }}</div>
         @endif
 
-        <div class="row">
+        <div class="row" style="align-items: center; display:flex; justify-content: center;">
             <div class="col-md-3 text-center">
                 <img src="{{ asset('storage/profile_images/' . ($user->profile_picture ?? 'anonymous.png')) }}"
                      class="img-circle elevation-2"
                      alt="User Image"
-                     style="width: 120px; height: 120px; object-fit: cover; border: 3px solid #ddd; border-radius: 50%;">
-            </div>
-            <div class="col-md-9 text-secondary">
-                <p><strong class="text-dark">ID Level:</strong> {{ $user->level_id }}</p>
+                     style="width: 150px; height: 150px; object-fit: cover; border: 3px solid #ddd; border-radius: 50%;">
+                <p style="margin-top: 20px;"><strong class="text-dark">ID Level:</strong> {{ $user->level_id }}</p>
                 <p><strong class="text-dark">Username:</strong> {{ $user->username }}</p>
                 <p><strong class="text-dark">Nama:</strong> {{ $user->nama }}</p>
                 <p><strong class="text-dark">Role:</strong> {{ $user->level->level_nama ?? 'Tidak diketahui' }}</p>
