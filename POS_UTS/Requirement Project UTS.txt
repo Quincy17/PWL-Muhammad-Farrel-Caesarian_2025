@@ -64,10 +64,10 @@ Penjualan :
 -Import Excel ✔
 
 Penjualan Detail :
--Create Ajax ✔
+-Create Ajax 
 -Edit Ajax 
--Show Ajax 
+-Show Ajax ✔
 -Delete Ajax ✔
 -Export Excel ✔
--Export Pdf 
+-Export Pdf ✔
 -Import Excel ✔

@@ -10,7 +10,7 @@
      <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
      <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
  </head>
- <body class="hold-transition login-page">
+ <body class="hold-transition login-page" style="background: linear-gradient(135deg, #74EBD5 0%, #9FACE6 100%);">
      <div class="login-box">
          <div class="card card-outline card-primary">
              <div class="card-header text-center">

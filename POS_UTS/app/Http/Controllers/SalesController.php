@@ -359,8 +359,8 @@ class SalesController extends Controller
 
     public function export_excel(){
         // ambil data barang yang akan di export
-        $barang = PenjualanModel::with('user')
-                    ->select( 'user_id', 'pembeli','penjualan_kode','penjualan_tanggal')
+        $barang = PenjualanModel::with('user', 'detail.barang') // tambahkan barang di dalam detail
+                    ->select('penjualan_id', 'user_id', 'pembeli', 'penjualan_kode', 'penjualan_tanggal')
                     ->orderBy('penjualan_id')
                     ->get();
 
@@ -371,24 +371,34 @@ class SalesController extends Controller
         $sheet->setCellValue('A1', 'No');
         $sheet->setCellValue('B1', 'Penjual');
         $sheet->setCellValue('C1', 'Pembeli');
-        $sheet->setCellValue('D1', 'Kode Transaksi');
-        $sheet->setCellValue('E1', 'Tanggal Transaksi');
+        $sheet->setCellValue('D1', 'Harga');
+        $sheet->setCellValue('E1', 'Jumlah');
+        $sheet->setCellValue('F1', 'Total');
+        $sheet->setCellValue('G1', 'Kode Transaksi');
+        $sheet->setCellValue('H1', 'Tanggal Transaksi');
 
-        $sheet->getStyle('A1:E1')->getFont()->setBold(true); // bold header
+        $sheet->getStyle('A1:H1')->getFont()->setBold(true); // bold header
 
-        $no = 1; // nomor data dimulai dari 1
-        $baris = 2; // baris data dimulai dari baris ke 2
+        $no = 1;
+        $baris = 2;
         foreach ($barang as $key => $value) {
-            $sheet->setCellValue('A' . $baris, $no);
-            $sheet->setCellValue('B' . $baris, $value->user->username);
-            $sheet->setCellValue('C' . $baris, $value->pembeli);
-            $sheet->setCellValue('D' . $baris, $value->penjualan_kode);
-            $sheet->setCellValue('E' . $baris, $value->penjualan_tanggal);
-            $baris++;
-            $no++;
+            foreach ($value->detail as $d) { // LOOP detail
+                $sheet->setCellValue('A' . $baris, $no);
+                $sheet->setCellValue('B' . $baris, $value->user->username);
+                $sheet->setCellValue('C' . $baris, $value->pembeli);
+                $sheet->setCellValue('D' . $baris, $d->harga); 
+                $sheet->setCellValue('E' . $baris, $d->jumlah); 
+                $sheet->setCellValue('F' . $baris, $d->harga * $d->jumlah);
+                $sheet->setCellValue('G' . $baris, $value->penjualan_kode);
+                $sheet->setCellValue('H' . $baris, $value->penjualan_tanggal);
+
+                $baris++;
+                $no++;
+            }
         }
 
-        foreach (range('A', 'E') as $columnID) {
+
+        foreach (range('A', 'H') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true); // set auto size untuk kolom
         }
 
@@ -412,13 +422,13 @@ class SalesController extends Controller
     }
 
     public function export_pdf(){
-        $barang = PenjualanModel::with('user')
-                    ->select( 'user_id', 'pembeli','penjualan_kode','penjualan_tanggal')
+        $barang = PenjualanModel::with('user', 'detail.barang') // tambahkan barang di dalam detail
+                    ->select('penjualan_id', 'user_id', 'pembeli', 'penjualan_kode', 'penjualan_tanggal')
                     ->orderBy('penjualan_id')
                     ->get();
 
         $pdf = Pdf::loadView('penjualan.export_pdf', ['barang' => $barang]);
-        $pdf->setPaper('A4', 'portrait');
+        $pdf->setPaper('A4', 'landscape');
         $pdf->setOptions(['isRemoteEnabled' => true]);
         $pdf->render();
 

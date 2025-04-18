@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Laporan Data Penjualan</title>
+    <title>Laporan Data Detail Penjualan</title>
     <style>
         body {
             font-family: "Times New Roman", Times, serif;
@@ -82,37 +82,40 @@
             </td>
         </tr>
     </table>
-    <h3 class="text-center">LAPORAN DATA PENJUALAN</h3>
+    <h3 class="text-center">LAPORAN DATA DETAIL PENJUALAN</h3>
     <table class="border-all">
         <thead>
             <tr>
-                <th class="text-center">P-ID</th>
-                <th>Penjual</th>
-                <th>Pembeli</th>
+                <th class="text-center">NO</th>
+                <th>ID Penjualan</th>
                 <th>Nama Barang</th>
                 <th>Harga</th>
-                <th>QTY</th>
+                <th>Jumlah</th>
                 <th>Total</th>
-                <th>Kode Transaksi</th>
-                <th>Tanggal</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($barang as $b)
-                @foreach($b->detail as $d)
+            @php
+                $grandTotal = 0;
+            @endphp
+           @foreach($barang as $b)
+                @php
+                    $total = $b->harga * $b->jumlah;
+                    $grandTotal += $total;
+                @endphp
                 <tr>
-                    <td class="text-center">{{ $loop->parent->iteration }}</td> 
-                    <td>{{ $b->user->username }}</td>
-                    <td>{{ $b->pembeli }}</td>
-                    <td>{{ $d->barang->barang_nama ?? '-' }}</td> <!-- Nama Barang dari relasi barang -->
-                    <td>{{ number_format($d->harga, 0, ',', '.') }}</td>
-                    <td>{{ $d->jumlah }}</td>
-                    <td>{{ number_format($d->harga * $d->jumlah, 0, ',', '.') }}</td>
-                    <td>{{ $b->penjualan_kode }}</td>
-                    <td>{{ $b->penjualan_tanggal }}</td>
+                    <td class="text-center">{{ $loop->iteration }}</td> 
+                    <td>{{ $b->penjualan_id }}</td>
+                    <td>{{ $b->barang->barang_nama ?? '-' }}</td> <!-- Nama Barang dari relasi barang -->
+                    <td>{{ number_format($b->harga, 0, ',', '.') }}</td>
+                    <td>{{ $b->jumlah }}</td>
+                    <td>{{ number_format($b->harga * $b->jumlah, 0, ',', '.') }}</td>
                 </tr>
-                @endforeach
             @endforeach
+            <tr>
+                <td colspan="5" class="text-right font-bold" ><span style="margin-right: 15px;">Total Penjualan</span></td>
+                <td class="font-bold">{{ number_format($grandTotal, 0, ',', '.') }}</td>
+            </tr>
         </tbody>
     </table>
     

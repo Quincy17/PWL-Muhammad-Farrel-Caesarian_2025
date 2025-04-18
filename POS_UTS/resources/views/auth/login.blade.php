@@ -9,9 +9,11 @@
      <link rel="stylesheet" href="{{ asset('adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
      <link rel="stylesheet" href="{{ asset('adminlte/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
      <link rel="stylesheet" href="{{ asset('adminlte/dist/css/adminlte.min.css') }}">
- </head>
- <body class="hold-transition login-page">
-     <div class="login-box">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    </head>
+ <body class="hold-transition login-page" style="background: linear-gradient(135deg, #74EBD5 0%, #9FACE6 100%);">
+    <div class="login-box animated fadeInUp">
          <div class="card card-outline card-primary">
              <div class="card-header text-center">
                  <a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a>
