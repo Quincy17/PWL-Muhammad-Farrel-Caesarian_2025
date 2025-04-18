@@ -1,0 +1,73 @@
+Requirement Project UTS
+
+User :
+-Create Ajax ✔
+-Edit Ajax ✔
+-Show Ajax ✔
+-Delete Ajax ✔
+-Export Excel ✔
+-Export Pdf ✔
+-Import Excel ✔
+
+Barang :
+-Create Ajax ✔
+-Edit Ajax ✔
+-Show Ajax ✔
+-Delete Ajax ✔
+-Export Excel ✔
+-Export Pdf ✔
+-Import Excel ✔
+
+Supplier :
+-Create Ajax ✔
+-Edit Ajax ✔
+-Show Ajax ✔
+-Delete Ajax ✔
+-Export Excel ✔
+-Export Pdf ✔
+-Import Excel ✔
+
+Kategori :
+-Create Ajax ✔
+-Edit Ajax ✔
+-Show Ajax ✔
+-Delete Ajax ✔
+-Export Excel ✔
+-Export Pdf ✔
+-Import Excel ✔
+
+Level :
+-Create Ajax ✔
+-Edit Ajax ✔
+-Show Ajax ✔
+-Delete Ajax ✔
+-Export Excel ✔
+-Export Pdf ✔
+-Import Excel ✔
+
+Stok :
+-Create Ajax ✔
+-Edit Ajax ✔
+-Show Ajax ✔
+-Delete Ajax ✔
+-Export Excel ✔
+-Export Pdf 
+-Import Excel ✔
+
+Penjualan :
+-Create Ajax ✔
+-Edit Ajax ✔
+-Show Ajax ✔
+-Delete Ajax ✔
+-Export Excel ✔
+-Export Pdf 
+-Import Excel ✔
+
+Penjualan Detail :
+-Create Ajax ✔
+-Edit Ajax 
+-Show Ajax 
+-Delete Ajax ✔
+-Export Excel ✔
+-Export Pdf 
+-Import Excel ✔

@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/import', [LevelController::class, 'import']); // menampilkan halaman form tambah user Ajax
             Route::post('/import_ajax', [LevelController::class, 'import_ajax']); // menyimpan data user baru Ajax
             Route::get('/export_excel', [LevelController::class, 'export_excel']);
+            Route::get('/export_pdf', [LevelController::class, 'export_pdf']);
             Route::post('/list', [LevelController::class, 'list']);        
             Route::get('/create', [LevelController::class, 'create']);    
             Route::post('/', [LevelController::class, 'store']);          
@@ -85,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/{id}/delete_ajax', [BarangController::class, 'confirm_ajax']); // menampilkan halaman form Delete user Ajax
             Route::delete('/{id}/delete_ajax', [BarangController::class, 'delete_ajax']); // menghapus data user Ajax
             Route::post('/list', [BarangController::class, 'list']);
+            Route::get('/export_pdf', [BarangController::class, 'export_pdf']);
             Route::get('/create', [BarangController::class, 'create']);
             Route::post('/', [BarangController::class, 'store']);
             Route::get('/{id}', [BarangController::class, 'show']);
@@ -98,6 +100,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['authorize:ADM,MNG'])->group(function () {
     Route::group(['prefix' => 'user'], function () {
         Route::get('/', [UserController::class, 'index']); // menampilkan halaman awal user
+        Route::get('/export_pdf', [UserController::class, 'export_pdf']);
         Route::get('/{id}/show_ajax', [UserController::class, 'show_ajax']);
         Route::get('/create_ajax', [UserController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
         Route::post('/ajax', [UserController::class, 'store_ajax']); // menyimpan data user baru Ajax
@@ -122,6 +125,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['authorize:ADM,MNG,STF,KSR'])->group(function () {
     Route::group(['prefix' => 'kategori'], function () {
         Route::get('/', [KategoriController::class, 'index']);
+        Route::get('/export_pdf', [KategoriController::class, 'export_pdf']);
         Route::get('/{id}/show_ajax', [KategoriController::class, 'show_ajax']);
         Route::get('/create_ajax', [KategoriController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
         Route::post('/ajax', [KategoriController::class, 'store_ajax']); // menyimpan data user baru Ajax
@@ -146,6 +150,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
     Route::group(['prefix' => 'supplier'], function () {
         Route::get('/', [SupplierController::class, 'index']);
+        Route::get('/export_pdf', [SupplierController::class, 'export_pdf']);
         Route::get('/{id}/show_ajax', [SupplierController::class, 'show_ajax']);
         Route::get('/create_ajax', [SupplierController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
         Route::post('/ajax', [SupplierController::class, 'store_ajax']); // menyimpan data user baru Ajax
@@ -169,6 +174,7 @@ Route::middleware(['auth'])->group(function () {
      Route::middleware(['authorize:ADM,MNG,STF'])->group(function () {
      Route::group(['prefix' => 'stok'], function () {
          Route::get('/', [StokController::class, 'index']);
+         Route::get('/export_pdf', [StokController::class, 'export_pdf']);
          Route::get('/{id}/show_ajax', [StokController::class, 'show_ajax']);
          Route::get('/create_ajax', [StokController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
          Route::post('/ajax', [StokController::class, 'store_ajax']); // menyimpan data user baru Ajax
@@ -192,6 +198,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['authorize:ADM,MNG,STF,CUS,KSR'])->group(function () {
      Route::group(['prefix' => 'penjualan'], function () {
          Route::get('/', [SalesController::class, 'index']);
+         Route::get('/export_pdf', [SalesController::class, 'export_pdf']);
          Route::get('/{id}/show_ajax', [SalesController::class, 'show_ajax']);
          Route::get('/create_ajax', [SalesController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
          Route::post('/ajax', [SalesController::class, 'store_ajax']); // menyimpan data user baru Ajax
@@ -215,6 +222,7 @@ Route::middleware(['auth'])->group(function () {
      Route::middleware(['authorize:ADM,MNG,STF,CUS,KSR'])->group(function () {
      Route::group(['prefix' => 'penjualan_detail'], function () {
          Route::get('/', [SalesDetailController::class, 'index']);
+         Route::get('/export_pdf', [SalesDetailController::class, 'export_pdf']);
          Route::get('/{id}/show_ajax', [SalesDetailController::class, 'show_ajax']);
          Route::get('/create_ajax', [SalesDetailController::class, 'create_ajax']); // menampilkan halaman form tambah user Ajax
          Route::post('/ajax', [SalesDetailController::class, 'store_ajax']); // menyimpan data user baru Ajax

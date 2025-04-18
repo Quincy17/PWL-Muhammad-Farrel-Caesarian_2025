@@ -6,7 +6,8 @@
              <h3 class="card-title">{{ $page->title }}</h3>
              <div class="card-tools">
                 <button onclick="modalAction('{{ url('/stok/import') }}')" class="btn btn-sm btn-info mt-1">Import Barang</button>
-                 <a class="btn btn-sm btn-primary mt-1" href="{{ url('stok/create') }}">Tambah</a>
+                <a href="{{ url('/stok/export_excel') }}" class="btn btn-sm btn-primary mt-1"><i class="fa fa-fileexcel"></i> Export Barang (Excel)</a>
+                <a href="{{ url('/stok/export_pdf') }}" class="btn btn-sm mt-1 btn-warning"><i class="fa fa-filepdf"></i> Export Barang (PDF)</a>
                  <button onclick="modalAction('{{ url('stok/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
                 </div>
          </div>
