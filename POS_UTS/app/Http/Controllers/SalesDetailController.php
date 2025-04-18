@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PenjualanDetailModel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SalesDetailController extends Controller
 {

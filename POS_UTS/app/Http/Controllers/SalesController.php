@@ -11,6 +11,7 @@ use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SalesController extends Controller
 {
@@ -408,5 +409,19 @@ class SalesController extends Controller
         $writer->save('php://output');
         exit;
         
+    }
+
+    public function export_pdf(){
+        $barang = PenjualanModel::with('user')
+                    ->select( 'user_id', 'pembeli','penjualan_kode','penjualan_tanggal')
+                    ->orderBy('penjualan_id')
+                    ->get();
+
+        $pdf = Pdf::loadView('penjualan.export_pdf', ['barang' => $barang]);
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->setOptions(['isRemoteEnabled' => true]);
+        $pdf->render();
+
+        return $pdf->stream('Data Penjualan_' . date('Y-m-d H:i:s') . '.pdf');
     }
 }

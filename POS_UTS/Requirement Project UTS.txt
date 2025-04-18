@@ -51,7 +51,7 @@ Stok :
 -Show Ajax ✔
 -Delete Ajax ✔
 -Export Excel ✔
--Export Pdf 
+-Export Pdf ✔
 -Import Excel ✔
 
 Penjualan :
@@ -60,7 +60,7 @@ Penjualan :
 -Show Ajax ✔
 -Delete Ajax ✔
 -Export Excel ✔
--Export Pdf 
+-Export Pdf ✔
 -Import Excel ✔
 
 Penjualan Detail :

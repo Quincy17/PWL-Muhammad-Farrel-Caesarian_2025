@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
  use Illuminate\Support\Facades\Validator;
  use PhpOffice\PhpSpreadsheet\IOFactory;
  use PhpOffice\PhpSpreadsheet\Shared\Date;
+ use Barryvdh\DomPDF\Facade\Pdf;
 
  class StokController extends Controller
  {
@@ -455,5 +456,19 @@ namespace App\Http\Controllers;
         $writer->save('php://output');
         exit;
         
+    }
+
+    public function export_pdf(){
+        $barang = StokModel::with('supplier','barang','user')
+                    ->select( 'supplier_id', 'barang_id','user_id','stok_tanggal','stok_jumlah')
+                    ->orderBy('stok_id')
+                    ->get();
+
+        $pdf = Pdf::loadView('stok.export_pdf', ['barang' => $barang]);
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->setOptions(['isRemoteEnabled' => true]);
+        $pdf->render();
+
+        return $pdf->stream('Data Stok_' . date('Y-m-d H:i:s') . '.pdf');
     }
 }
