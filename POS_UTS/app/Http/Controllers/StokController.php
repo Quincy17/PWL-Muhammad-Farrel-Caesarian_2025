@@ -10,7 +10,9 @@ namespace App\Http\Controllers;
  use Illuminate\Support\Facades\DB;
  use Yajra\DataTables\Facades\DataTables;
  use Illuminate\Support\Facades\Validator;
- 
+ use PhpOffice\PhpSpreadsheet\IOFactory;
+ use PhpOffice\PhpSpreadsheet\Shared\Date;
+
  class StokController extends Controller
  {
      // Menampilkan halaman awal stok
@@ -320,4 +322,82 @@ namespace App\Http\Controllers;
         
          return view('stok.show_ajax', ['stok' => $stok]);
      }
+
+     public function import()
+    {
+        return view('stok.import');
+    }
+
+    public function import_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'file_stok' => ['required', 'mimes:xlsx', 'max:4096'],
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors(),
+                ]);
+            }
+
+            $file = $request->file('file_stok');
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $data = $sheet->toArray(null, false, true, true);
+            $insert = [];
+
+            if (count($data) > 1) {
+                foreach ($data as $baris => $value) {
+                    if ($baris > 1) {
+                        $tanggal = $value['D'];
+        
+                        // Cek apakah kolom D adalah angka (mungkin format tanggal Excel)
+                        if (is_numeric($tanggal)) {
+                            // Format Excel serial number
+                            $tanggal = Date::excelToDateTimeObject($tanggal)->format('Y-m-d H:i:s');
+                        } else {
+                            // Format teks "14/04/2025 08:17:55"
+                            $date = \DateTime::createFromFormat('d/m/Y H:i:s', $tanggal);
+                            if ($date) {
+                                $tanggal = $date->format('Y-m-d H:i:s');
+                            } else {
+                                // Kalau gagal parsing, set null aja
+                                $tanggal = null;
+                            }
+                        }
+                        $insert[] = [
+                            'supplier_id' => $value['A'],
+                            'barang_id' => $value['B'],
+                            'user_id' => $value['C'],
+                            'stok_tanggal' => $tanggal,
+                            'stok_jumlah' => $value['E'],
+                            'created_at' => now(),
+                        ];
+                    }
+                }
+
+                if (count($insert) > 0) {
+                    StokModel::insertOrIgnore($insert);
+                }
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil diimport',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Tidak ada data yang diimport',
+                ]);
+            }
+        }
+
+        return redirect('/');
+    }
 }

@@ -28,7 +28,7 @@
         <div class="modal-body">
             <table class="table table-bordered table-striped table-hover table-sm">
                 <tr>
-                    <th>ID Stock</th>
+                    <th>ID Stok</th>
                     <td>{{ $stok->stok_id }}</td>
                 </tr>
                 <tr>

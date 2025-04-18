@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class SalesController extends Controller
 {
@@ -276,4 +278,135 @@ class SalesController extends Controller
         
          return view('penjualan.show_ajax', ['penjualan' => $penjualan]);
      }
+
+     public function import()
+    {
+        return view('penjualan.import');
+    }
+
+    public function import_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'file_penjualan' => ['required', 'mimes:xlsx', 'max:4096'],
+            ];
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors(),
+                ]);
+            }
+
+            $file = $request->file('file_penjualan');
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $data = $sheet->toArray(null, false, true, true);
+            $insert = [];
+
+            if (count($data) > 1) {
+                foreach ($data as $baris => $value) {
+                    if ($baris > 1) {
+                        $tanggal = $value['D'];
+        
+                        // Cek apakah kolom D adalah angka (mungkin format tanggal Excel)
+                        if (is_numeric($tanggal)) {
+                            // Format Excel serial number
+                            $tanggal = Date::excelToDateTimeObject($tanggal)->format('Y-m-d H:i:s');
+                        } else {
+                            // Format teks "14/04/2025 08:17:55"
+                            $date = \DateTime::createFromFormat('d/m/Y H:i:s', $tanggal);
+                            if ($date) {
+                                $tanggal = $date->format('Y-m-d H:i:s');
+                            } else {
+                                // Kalau gagal parsing, set null aja
+                                $tanggal = null;
+                            }
+                        }
+                        $insert[] = [
+                            'user_id' => $value['A'],
+                            'pembeli' => $value['B'],
+                            'penjualan_kode' => $value['C'],
+                            'penjualan_tanggal' => $tanggal,
+                            'created_at' => now(),
+                        ];
+                    }
+                }
+
+                if (count($insert) > 0) {
+                    PenjualanModel::insertOrIgnore($insert);
+                }
+
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Data berhasil diimport',
+                ]);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Tidak ada data yang diimport',
+                ]);
+            }
+        }
+
+        return redirect('/');
+    }
+
+    public function export_excel(){
+        // ambil data barang yang akan di export
+        $barang = PenjualanModel::with('user')
+                    ->select( 'user_id', 'pembeli','penjualan_kode','penjualan_tanggal')
+                    ->orderBy('penjualan_id')
+                    ->get();
+
+        // load library excel
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet(); // ambil sheet yang aktif
+
+        $sheet->setCellValue('A1', 'No');
+        $sheet->setCellValue('B1', 'Penjual');
+        $sheet->setCellValue('C1', 'Pembeli');
+        $sheet->setCellValue('D1', 'Kode Transaksi');
+        $sheet->setCellValue('E1', 'Tanggal Transaksi');
+
+        $sheet->getStyle('A1:E1')->getFont()->setBold(true); // bold header
+
+        $no = 1; // nomor data dimulai dari 1
+        $baris = 2; // baris data dimulai dari baris ke 2
+        foreach ($barang as $key => $value) {
+            $sheet->setCellValue('A' . $baris, $no);
+            $sheet->setCellValue('B' . $baris, $value->user->username);
+            $sheet->setCellValue('C' . $baris, $value->pembeli);
+            $sheet->setCellValue('D' . $baris, $value->penjualan_kode);
+            $sheet->setCellValue('E' . $baris, $value->penjualan_tanggal);
+            $baris++;
+            $no++;
+        }
+
+        foreach (range('A', 'E') as $columnID) {
+            $sheet->getColumnDimension($columnID)->setAutoSize(true); // set auto size untuk kolom
+        }
+
+        $sheet->setTitle('Data Penjualan'); // set title sheet
+
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx'); //Membuat “penulis” file Excel dalam format .xlsx
+        $filename = 'Data Penjualan_' . date('Y-m-d H:i:s') . '.xlsx';
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'); // memberi tahu bahwa ini adalah file excel
+        header('Content-Disposition: attachment;filename="' . $filename . '"'); //Memberi tau browser supaya file langsung di-download, bukan dibuka di browser.  
+        header('Cache-Control: max-age=0');
+        header('Cache-Control: max-age=1'); //Supaya browser tidak menyimpan versi lama dari file ini.
+        header('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); //Tanggal kadaluarsa file ini ditetapkan ke masa lalu → artinya file ini harus dianggap baru setiap saat.  
+        header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT'); // memberi tahu bahwa sekarang adaah terakhir modifikasi.
+        header('Cache-Control: cache, must-revalidate'); // File ini bisa di-cache, tapi harus diperiksa dulu ke server apakah ada versi terbaru.
+        header('Pragma: public'); //Boleh disimpan (public cache) di beberapa kasus, untuk dukung browser lama.
+
+        $writer->save('php://output');
+        exit;
+        
+    }
 }
