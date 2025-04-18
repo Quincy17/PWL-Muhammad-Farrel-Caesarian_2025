@@ -7,6 +7,8 @@ use App\Models\PenjualanDetailModel;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\BarangModel;
+use App\Models\PenjualanModel;
 
 class SalesDetailController extends Controller
 {
@@ -147,6 +149,98 @@ class SalesDetailController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+
+    public function edit_ajax(string $id)
+    {
+        $penjualanDetail = PenjualanDetailModel::find($id);
+        $penjualan = PenjualanModel::all();
+        $barang = BarangModel::all();
+        return view('penjualan_detail.edit_ajax', [
+            'penjualanDetail' => $penjualanDetail,
+            'penjualan' => $penjualan,
+            'barang' => $barang,
+        ]);
+    }
+
+     public function update_ajax(Request $request, $id)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'barang_id'    => ['required', 'integer', 'exists:m_barang,barang_id'],
+                'penjualan_id'  => ['required', 'integer', 'exists:t_penjualan,penjualan_id'], // validasi supplier
+                'harga' => ['required', 'integer', 'min:1'],
+                'jumlah'  => ['required', 'integer', 'min:1'],
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'   => false,
+                    'message'  => 'Validasi gagal.',
+                    'msgField' => $validator->errors(),
+                ]);
+            }
+
+            $penjualanDetail = PenjualanDetailModel::find($id);
+            if ($penjualanDetail) {
+                $penjualanDetail->update($request->all());
+
+                return response()->json([
+                    'status'  => true,
+                    'message' => 'Data Penjualan Detail berhasil diupdate.',
+                ]);
+            }
+
+            return response()->json([
+                'status'  => false,
+                'message' => 'Data tidak ditemukan.',
+            ]);
+        }
+    }
+    
+    public function create_ajax()
+    {
+        $penjualan = PenjualanModel::all();
+        $barang = BarangModel::all();
+        return view('penjualan_detail.create_ajax', [
+            'barang' => $barang,
+            'penjualan' => $penjualan,
+        ]);
+
+    }
+
+    // Simpan data stok baru
+    public function store_ajax(Request $request)
+    {
+        if ($request->ajax() || $request->wantsJson()) {
+
+            $rules = [
+                'barang_id'    => ['required', 'integer', 'exists:m_barang,barang_id'],
+                'penjualan_id'  => ['required', 'integer', 'exists:t_penjualan,penjualan_id'], // validasi supplier
+                'harga' => ['required', 'integer', 'min:1'],
+                'jumlah'  => ['required', 'integer', 'min:1'],
+            ];
+
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status'   => false,
+                    'message'  => 'Validasi gagal.',
+                    'msgField' => $validator->errors(),
+                ]);
+            }
+            $data = $request->all();
+
+            PenjualanDetailModel::create($data);
+
+            return response()->json([
+                'status'  => true,
+                'message' => 'Data Penjualan Detail berhasil disimpan.',
+            ]);
+        }
     }
 
     public function confirm_ajax(string $id)
