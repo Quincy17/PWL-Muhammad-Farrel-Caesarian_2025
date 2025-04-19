@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\BarangModel;
 use App\Models\PenjualanModel;
+use Illuminate\Support\Facades\Auth;
 
 class SalesDetailController extends Controller
 {
@@ -143,9 +144,11 @@ class SalesDetailController extends Controller
                 
 
                 $btn = '<button onclick="modalAction(\'' . url('/penjualan_detail/' . $pd->detail_id . '/show_ajax') . '\')" class="btn btn-info btn-sm">Detail</button> ';
+                if(Auth::user()->level_id !=5){
                 $btn .= '<button onclick="modalAction(\'' . url('/penjualan_detail/' . $pd->detail_id . '/edit_ajax') . '\')" class="btn btn-warning btn-sm">Edit</button> ';
                 $btn .= '<button onclick="modalAction(\'' . url('/penjualan_detail/' . $pd->detail_id . '/delete_ajax') . '\')" class="btn btn-danger btn-sm">Hapus</button>';
-                 return $btn;
+                } 
+                return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);

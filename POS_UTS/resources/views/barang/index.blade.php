@@ -4,10 +4,14 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <button onclick="modalAction('{{ url('/barang/import') }}')" class="btn btn-sm btn-info mt-1">Import Barang</button>
-                <a href="{{ url('/barang/export_excel') }}" class="btn btn-sm btn-primary mt-1"><i class="fa fa-fileexcel"></i> Export Barang (Excel)</a>
-                <a href="{{ url('/barang/export_pdf') }}" class="btn btn-sm btn-warning mt-1"><i class="fa fa-filepdf"></i> Export Barang (PDF)</a>
-                <button onclick="modalAction('{{url ('barang/create_ajax')}}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+                @if (Auth::user()->level_id == 5)
+                  {{-- kalau role cust, tombol ga muncul   --}}
+                @else
+                    <button onclick="modalAction('{{ url('/barang/import') }}')" class="btn btn-sm btn-info mt-1">Import Barang</button>
+                    <a href="{{ url('/barang/export_excel') }}" class="btn btn-sm btn-primary mt-1"><i class="fa fa-fileexcel"></i> Export Barang (Excel)</a>
+                    <a href="{{ url('/barang/export_pdf') }}" class="btn btn-sm btn-warning mt-1"><i class="fa fa-filepdf"></i> Export Barang (PDF)</a>
+                    <button onclick="modalAction('{{url ('barang/create_ajax')}}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+                @endif
             </div>
         </div>
         <div class="card-body">
@@ -30,7 +34,9 @@
                         <th>Kategori</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
-                        <th>Aksi</th>
+                        @if (Auth::user()->level_id != 5)
+                            <th>Aksi</th>
+                        @endif      
                     </tr>
                 </thead>
             </table>
@@ -99,12 +105,14 @@
                         orderable: true,
                         searchable: true
                     },
+                    @if (Auth::user()->level_id != 5)
                     {
                         data: "aksi",
                         className: "text-center",
                         orderable: false,
                         searchable: false
                     }
+                    @endif     
                 ]
             });
         });

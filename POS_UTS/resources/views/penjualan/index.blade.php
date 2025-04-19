@@ -5,10 +5,14 @@
     <div class="card-header">
         <h3 class="card-title">{{ $page->title }}</h3>
         <div class="card-tools">
+            @if (Auth::user()->level_id == 5)
+                  {{-- kalau role cust, tombol ga muncul   --}}
+            @else
             <button onclick="modalAction('{{ url('/penjualan/import') }}')" class="btn btn-sm btn-info mt-1">Import Penjualan</button>
             <a href="{{ url('/penjualan/export_excel') }}" class="btn btn-sm btn-primary mt-1"><i class="fa fa-fileexcel"></i> Export Penjualan (Excel)</a>
             <a href="{{ url('/penjualan/export_pdf') }}" class="btn btn-sm mt-1 btn-warning"><i class="fa fa-filepdf"></i> Export Penjualan (PDF)</a>
             <button onclick="modalAction('{{ url('penjualan/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah Ajax</button>
+            @endif
         </div>
     </div>
     <div class="card-body">
