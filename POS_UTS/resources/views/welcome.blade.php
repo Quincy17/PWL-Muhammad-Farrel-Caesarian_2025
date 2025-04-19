@@ -2,16 +2,6 @@
 
 @section('content')
 
-<div class="card">
-    {{-- <div class="card-header">
-        <h3 class="card-title">Hai, <span style="color:black; font-weight:bold; ">{{ Auth::user()->username }}!</span></h3>
-        <div class="card-tools"></div>
-    </div> --}}
-    {{-- <div class="card-body">
-        Selamat datang {{ Auth::user()->username }}!, ini adalah halaman utama dari aplikasi ini.
-    </div> --}}
-</div>
-
 <div class="row">
     <!-- Preview Barang -->
     <div class="col-md-4">
