@@ -2,6 +2,19 @@
 
 @section('content')
 
+@if (Auth::user()->level_id == 5)
+    <div class="card">
+        <div class="card-header">
+        <div class="card-header">
+            <h3 class="card-title">Hai, <span style="color:black; font-weight:bold; ">{{ Auth::user()->username }}!, ini adalah halaman utama dari aplikasi ini.</span></h3>
+            <div class="card-tools"></div>
+        </div>
+        <div class="card-body">
+            Silahkan gunakan aplikasi ini dengan baik :)
+        </div>
+    </div>
+    </div>
+@else
 <div class="row">
     <!-- Preview Barang -->
     <div class="col-md-4">
@@ -87,5 +100,5 @@
         </div>
     </div>
 </div>
-
+@endif
 @endsection
