@@ -5,7 +5,7 @@
 <div class="row">
     <!-- Preview Barang -->
     <div class="col-md-4">
-        <div class="card text-dark mb-3">
+        <div class="card text-dark mb-3 text-center">
             <div class="card-header"><h5>Jumlah Barang : {{ $totalBarang }}</h5></div>
             <div class="card-body">
                 <a href="{{ url('/barang') }}" class="btn btn-outline-primary">Lihat Detail</a>
@@ -15,7 +15,7 @@
 
     <!-- Preview Penjualan -->
     <div class="col-md-4">
-        <div class="card text-dark mb-3">
+        <div class="card text-dark mb-3 text-center">
             <div class="card-header"><h5>Jumlah User : {{ $totalUser }}</h5></div>
             <div class="card-body">
                 <a href="{{ url('/user') }}" class="btn btn-outline-primary">Lihat Detail</a>
@@ -25,7 +25,7 @@
 
     <!-- Preview Penjualan Detail -->
     <div class="col-md-4">
-        <div class="card text-dark mb-3">
+        <div class="card text-dark mb-3 text-center">
             <div class="card-header"><h5>Jumlah Level : {{ $totalLevel }}</h5></div>
             <div class="card-body">
                 <a href="{{ url('/level') }}" class="btn btn-outline-primary">Lihat Detail</a>
@@ -37,7 +37,7 @@
 <div class="row">
     <!-- Preview Stok -->
     <div class="col-md-4">
-        <div class="card text-dark mb-3">
+        <div class="card text-dark mb-3 text-center">
             <div class="card-header"><h5>Jumlah Stok : {{ $totalStok }}</h5></div>
             <div class="card-body">
                 <a href="{{ url('/stok') }}" class="btn btn-outline-primary">Lihat Detail</a>
@@ -47,7 +47,7 @@
 
     <!-- Preview Kategori -->
     <div class="col-md-4">
-        <div class="card text-dark mb-3">
+        <div class="card text-dark mb-3 text-center">
             <div class="card-header"><h5>Jumlah Kategori : {{ $totalKategori }}</h5></div>
             <div class="card-body">
                 <a href="{{ url('/kategori') }}" class="btn btn-outline-primary">Lihat Detail</a>
@@ -57,7 +57,7 @@
 
     <!-- Preview Supplier -->
     <div class="col-md-4">
-        <div class="card text-dark mb-3">
+        <div class="card text-dark mb-3 text-center">
             <div class="card-header"><h5>Jumlah Supplier : {{ $totalSupplier }}</h5></div>
             <div class="card-body">
                 <a href="{{ url('/supplier') }}" class="btn btn-outline-primary">Lihat Detail</a>
@@ -69,7 +69,7 @@
 <div class="row justify-content-center">
     <!-- Preview Penjualan -->
     <div class="col-md-4">
-        <div class="card text-dark mb-3">
+        <div class="card text-dark mb-3 text-center">
             <div class="card-header"><h5>Jumlah Penjualan : {{ $totalPenjualan }}</h5></div>
             <div class="card-body">
                 <a href="{{ url('/penjualan') }}" class="btn btn-outline-primary">Lihat Detail</a>
@@ -79,7 +79,7 @@
 
     <!-- Preview Penjualan Detail -->
     <div class="col-md-4">
-        <div class="card text-dark mb-3">
+        <div class="card text-dark mb-3 text-center">
             <div class="card-header"><h5>Detail Penjualan : {{ $totalPenjualanDetail }}</h5></div>
             <div class="card-body">
                 <a href="{{ url('/penjualan_detail') }}" class="btn btn-outline-primary">Lihat Detail</a>
