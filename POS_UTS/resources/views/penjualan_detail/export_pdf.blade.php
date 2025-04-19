@@ -113,7 +113,7 @@
                 </tr>
             @endforeach
             <tr>
-                <td colspan="5" class="text-right font-bold" ><span style="margin-right: 15px;">Total Penjualan</span></td>
+                <td colspan="5" class="text-right font-bold" ><span style="margin-right: 15px;">Total Penjualan (Omset)</span></td>
                 <td class="font-bold">{{ number_format($grandTotal, 0, ',', '.') }}</td>
             </tr>
         </tbody>

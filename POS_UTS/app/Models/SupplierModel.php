@@ -15,6 +15,7 @@ class SupplierModel extends Model
         'supplier_kode',
         'supplier_nama',
         'supplier_alamat',
+        'sektor',
     ]; // Kolom-kolom yang dapat diisi secara massal
 
     public function stok()

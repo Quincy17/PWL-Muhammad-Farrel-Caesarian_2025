@@ -24,11 +24,13 @@ class BarangModel extends Model
     {
         return $this->belongsTo(KategoriModel::class, 'kategori_id', 'kategori_id');
     }
+
     // Relasi ke model Stok
     public function stok()
     {
         return $this->hasMany(StokModel::class, 'barang_id', 'barang_id');
     }
+
     // Relasi ke model Penjualan
     public function penjualanDetail()
     {

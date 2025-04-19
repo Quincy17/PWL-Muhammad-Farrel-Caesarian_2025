@@ -89,6 +89,7 @@
                 <th class="text-center">No</th>
                 <th>Kode Supplier</th>
                 <th>Nama Supplier</th>
+                <th>Sektor</th>
                 <th>Alamat Supplier</th>
             </tr>
         </thead>
@@ -98,6 +99,7 @@
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td>{{ $b->supplier_kode }}</td>
                 <td>{{ $b->supplier_nama }}</td>
+                <td>{{ $b->sektor }}</td>
                 <td>{{ $b->supplier_alamat }}</td>
             </tr>
             @endforeach

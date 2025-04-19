@@ -20,6 +20,11 @@
                     <small id="error-supplier-nama" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
+                    <label>Sektor</label>
+                    <input value="" type="text" name="sektor" id="sektor" class="form-control" required>
+                    <small id="error-sektor" class="error-text form-text text-danger"></small>
+                </div>
+                <div class="form-group">
                     <label>Supplier Alamat</label>
                     <input value="" type="text" name="supplier_alamat" id="supplier_alamat" class="form-control"
                         required>
@@ -38,8 +43,8 @@
             rules: {
                 supplier_kode: { required: true, minlength: 4, maxlength: 10 },
                 supplier_nama: { required: true, maxlength: 100 },
+                sektor: { required: true, maxlength: 100 },
                 supplier_alamat: { required: true },
-                supplier_telepon: { required: true, maxlength: 15 }
             },
             submitHandler: function (form) {
                 $.ajax({

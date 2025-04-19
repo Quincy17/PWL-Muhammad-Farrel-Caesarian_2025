@@ -131,8 +131,8 @@
                 <i class="bi bi-trophy"></i>
               </div>
               <div class="stat-content">
-                <h4>3x Won Awards</h4>
-                <p class="mb-0">Vestibulum ante ipsum</p>
+                <h4>Efficient</h4>
+                <p class="mb-0">Fast-processed and sustainable system</p>
               </div>
             </div>
           </div>
@@ -142,8 +142,8 @@
                 <i class="bi bi-briefcase"></i>
               </div>
               <div class="stat-content">
-                <h4>6.5k Faucibus</h4>
-                <p class="mb-0">Nullam quis ante</p>
+                <h4>User Friendly</h4>
+                <p class="mb-0">Modern User Interface </p>
               </div>
             </div>
           </div>
@@ -153,8 +153,8 @@
                 <i class="bi bi-graph-up"></i>
               </div>
               <div class="stat-content">
-                <h4>80k Mauris</h4>
-                <p class="mb-0">Etiam sit amet orci</p>
+                <h4>Real-Time Data</h4>
+                <p class="mb-0">Offer an instant execution of each process</p>
               </div>
             </div>
           </div>
@@ -164,8 +164,8 @@
                 <i class="bi bi-award"></i>
               </div>
               <div class="stat-content">
-                <h4>6x Phasellus</h4>
-                <p class="mb-0">Vestibulum ante ipsum</p>
+                <h4>Best on 2025</h4>
+                <p class="mb-0">Best Point of Sales App 2025 Award</p>
               </div>
             </div>
           </div>
@@ -1124,7 +1124,7 @@
 
   </main>
 
-  <footer id="footer" class="footer">
+   <footer id="footer" class="footer">
 
     <div class="container footer-top">
       <div class="row gy-4">
@@ -1204,7 +1204,7 @@
       </div>
     </div>
 
-  </footer>
+  </footer> 
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -1222,4 +1222,4 @@
 
 </body>
 
-</html>
+</html> 

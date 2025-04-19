@@ -30,7 +30,7 @@
  
      public function list(Request $request)
      {
-         $suppliers = SupplierModel::select('supplier_id', 'supplier_kode', 'supplier_nama', 'supplier_alamat');
+         $suppliers = SupplierModel::select('supplier_id', 'supplier_kode', 'supplier_nama', 'supplier_alamat','sektor');
  
          // Filter berdasarkan supplier_kode
          if ($request->supplier_kode) {
@@ -76,12 +76,14 @@
              'supplier_kode' => 'required|string|max:10|unique:m_supplier,supplier_kode',
              'supplier_nama' => 'required|string|max:100',
              'supplier_alamat' => 'required|string|max:255',
+             'sektor' => 'required|string|max:100',
          ]);
  
          SupplierModel::create([
              'supplier_kode' => $request->supplier_kode,
              'supplier_nama' => $request->supplier_nama,
              'supplier_alamat' => $request->supplier_alamat,
+             'sektor' => $request->sektor,
          ]);
  
          return redirect('/supplier')->with('success', 'Data supplier berhasil disimpan');
@@ -169,6 +171,7 @@
                  'supplier_kode' => 'required|string|min:4|max:10|unique:m_supplier,supplier_kode',
                  'supplier_nama' => 'required|string|max:100',
                  'supplier_alamat' => 'required|string',
+                 'sektor' => 'required|string|max:100',
              ];
  
              // use Illuminate\Support\Facades\Validator;
@@ -214,6 +217,7 @@
                  'supplier_kode' => 'required|string|min:4|max:10|unique:m_supplier,supplier_kode,' . $id . ',supplier_id',
                  'supplier_nama' => 'required|string|max:100',
                  'supplier_alamat' => 'required|string',
+                 'sektor' => 'required|string|max:100',
             ];
  
              // use Illuminate\Support\Facades\Validator;
@@ -318,7 +322,8 @@
                          $insert[] = [
                              'supplier_kode' => $value['A'],
                              'supplier_nama' => $value['B'],
-                             'supplier_alamat' => $value['C'],
+                             'sektor' => $value['C'],
+                             'supplier_alamat' => $value['D'],
                              'created_at' => now(),
                          ];
                      }
@@ -345,7 +350,7 @@
 
      public function export_excel(){
         // ambil data barang yang akan di export
-        $barang = SupplierModel::select( 'supplier_kode', 'supplier_nama', 'supplier_alamat')
+        $barang = SupplierModel::select( 'supplier_kode', 'supplier_nama', 'supplier_alamat','sektor')
                     ->orderBy('supplier_id')
                     ->get();
 
@@ -356,9 +361,10 @@
         $sheet->setCellValue('A1', 'No');
         $sheet->setCellValue('B1', 'Kode Supplier');
         $sheet->setCellValue('C1', 'Nama Supplier');
-        $sheet->setCellValue('D1', 'Alamat Supplier');
+        $sheet->setCellValue('D1', 'Sektor');
+        $sheet->setCellValue('E1', 'Alamat Supplier');
 
-        $sheet->getStyle('A1:D1')->getFont()->setBold(true); // bold header
+        $sheet->getStyle('A1:E1')->getFont()->setBold(true); // bold header
 
         $no = 1; // nomor data dimulai dari 1
         $baris = 2; // baris data dimulai dari baris ke 2
@@ -366,12 +372,13 @@
             $sheet->setCellValue('A' . $baris, $no);
             $sheet->setCellValue('B' . $baris, $value->supplier_kode);
             $sheet->setCellValue('C' . $baris, $value->supplier_nama);
-            $sheet->setCellValue('D' . $baris, $value->supplier_alamat);
+            $sheet->setCellValue('D' . $baris, $value->sektor);
+            $sheet->setCellValue('E' . $baris, $value->supplier_alamat);
             $baris++;
             $no++;
         }
 
-        foreach (range('A', 'D') as $columnID) {
+        foreach (range('A', 'E') as $columnID) {
             $sheet->getColumnDimension($columnID)->setAutoSize(true); // set auto size untuk kolom
         }
 
@@ -395,7 +402,7 @@
     }
 
     public function export_pdf(){
-        $barang = SupplierModel::select('supplier_kode', 'supplier_nama','supplier_alamat')
+        $barang = SupplierModel::select('supplier_kode', 'supplier_nama','supplier_alamat','sektor')
                     ->orderBy('supplier_id')
                     ->get();
         $pdf = Pdf::loadView('supplier.export_pdf', ['barang' => $barang]);
@@ -403,6 +410,6 @@
         $pdf->setOptions(['isRemoteEnabled' => true]);
         $pdf->render();
 
-        return $pdf->stream('Data Kategori_' . date('Y-m-d H:i:s') . '.pdf');
+        return $pdf->stream('Data Supplier_' . date('Y-m-d H:i:s') . '.pdf');
     }
  }

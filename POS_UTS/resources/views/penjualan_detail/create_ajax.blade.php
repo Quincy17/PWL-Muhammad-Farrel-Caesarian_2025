@@ -25,7 +25,9 @@
                     <select name="barang_id" id="barang_id" class="form-control" required>
                         <option value="">- Pilih Barang -</option>
                         @foreach ($barang as $b)
-                            <option value="{{ $b->barang_id }}">{{ $b->barang_nama }}</option>
+                            <option value="{{ $b->barang_id }}" data-harga="{{ $b->harga_jual }}">
+                                {{ $b->barang_nama }}
+                            </option>
                         @endforeach
                     </select>
                     <small id="error-barang_id" class="error-text form-text text-danger"></small>
@@ -33,7 +35,7 @@
 
                 <div class="form-group">
                     <label>Harga</label>
-                    <input type="number" name="harga" id="harga" class="form-control" required min="1">
+                    <input type="number" name="harga" id="harga" class="form-control" readonly required min="1">
                     <small id="error-harga" class="error-text form-text text-danger"></small>
                 </div>
                 <div class="form-group">
@@ -97,6 +99,11 @@
             unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
             }
+        });
+        $('#barang_id').on('change', function () {
+        var selected = $(this).find('option:selected');
+        var harga = selected.data('harga') || 0; // default 0 kalau kosong
+        $('#harga').val(harga);
         });
     });
 </script>

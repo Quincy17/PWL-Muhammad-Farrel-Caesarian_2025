@@ -64,8 +64,8 @@ Penjualan :
 -Import Excel ✔
 
 Penjualan Detail :
--Create Ajax 
--Edit Ajax 
+-Create Ajax ✔ (Harga Otomatis Terinput)
+-Edit Ajax ✔
 -Show Ajax ✔
 -Delete Ajax ✔
 -Export Excel ✔

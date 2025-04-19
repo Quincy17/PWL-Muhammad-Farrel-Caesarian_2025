@@ -32,23 +32,23 @@
                     <td>{{ $stok->stok_id }}</td>
                 </tr>
                 <tr>
-                    <th>Nama Barang</th>
+                    <th>Barang</th>
                     <td>{{ $stok->barang->barang_nama }}</td>
                 </tr>
                 <tr>
-                    <th>Nama Pegawai</th>
+                    <th>Penerima</th>
                     <td>{{ $stok->user->nama }}</td>
                 </tr>
                 <tr>
-                    <th>Nama Supplier</th>
+                    <th>Supplier</th>
                     <td>{{ $stok->supplier->supplier_nama }}</td>
                 </tr>
                 <tr>
-                    <th>Jumlah Stock Barang</th>
+                    <th>Jumlah Stok</th>
                     <td>{{ $stok->stok_jumlah }}</td>
                 </tr>
                 <tr>
-                    <th>Tanggal Stock Barang</th>
+                    <th>Tanggal Diterima</th>
                     <td>{{ \Carbon\Carbon::parse($stok->stok_tanggal)->locale('id')->translatedFormat('d F Y \ H:i:s') }}</td>
                 </tr>
             </table>

@@ -40,6 +40,10 @@
                     <td>{{ $supplier->supplier_nama }}</td>
                 </tr>
                 <tr>
+                    <th>Sektor</th>
+                    <td>{{ $supplier->sektor }}</td>
+                </tr>
+                <tr>
                     <th>Alamat Supplier</th>
                     <td>{{ $supplier->supplier_alamat }}</td>
                 </tr>
