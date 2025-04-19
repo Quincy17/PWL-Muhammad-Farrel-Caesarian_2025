@@ -1,20 +1,20 @@
 Requirement Project UTS
 
-Landing Page :
+Landing Page : (Aman)
 -Button Login & Register ✔
 
-Register
+Register : (Aman)
 -Create Account ✔
 -Default Level : Customer✔
 
-Login
+Login : (Aman)
 -Sign In ✔
 
-Dashboard :
+Dashboard : (Aman)
 -Selamat dating 'username' ✔
 -Preview dari tiap menu ✔
 
-User :
+User : (Aman)
 -Create Ajax ✔
 -Edit Ajax ✔
 -Show Ajax ✔
@@ -23,7 +23,7 @@ User :
 -Export Pdf ✔
 -Import Excel ✔
 
-Barang :
+Barang : (Aman)
 -Create Ajax ✔
 -Edit Ajax ✔
 -Show Ajax ✔
@@ -32,7 +32,7 @@ Barang :
 -Export Pdf ✔
 -Import Excel ✔
 
-Supplier :
+Supplier : (Aman)
 -Create Ajax ✔
 -Edit Ajax ✔
 -Show Ajax ✔
@@ -41,7 +41,7 @@ Supplier :
 -Export Pdf ✔
 -Import Excel ✔
 
-Kategori :
+Kategori : (Aman)
 -Create Ajax ✔
 -Edit Ajax ✔
 -Show Ajax ✔
@@ -50,7 +50,7 @@ Kategori :
 -Export Pdf ✔
 -Import Excel ✔
 
-Level :
+Level : (Aman)
 -Create Ajax ✔
 -Edit Ajax ✔
 -Show Ajax ✔
@@ -59,7 +59,7 @@ Level :
 -Export Pdf ✔
 -Import Excel ✔
 
-Stok :
+Stok : (Aman)
 -Create Ajax ✔
 -Edit Ajax ✔
 -Show Ajax ✔
@@ -68,7 +68,7 @@ Stok :
 -Export Pdf ✔
 -Import Excel ✔
 
-Penjualan :
+Penjualan : (Aman)
 -Create Ajax ✔
 -Edit Ajax ✔
 -Show Ajax ✔
@@ -77,7 +77,7 @@ Penjualan :
 -Export Pdf ✔
 -Import Excel ✔
 
-Penjualan Detail :
+Penjualan Detail : (Aman)
 -Create Ajax ✔ (Harga Otomatis Terinput)
 -Edit Ajax ✔
 -Show Ajax ✔
