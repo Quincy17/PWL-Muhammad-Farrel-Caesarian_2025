@@ -72,7 +72,7 @@
              'username' => $request->username,
              'nama' => $request->nama,
              'password' => Hash::make($request->password),
-             'level_id' => 1, // Level ID Admin
+             'level_id' => 5, // Level ID Customer
          ]);
  
          Auth::login($user);
