@@ -1,5 +1,19 @@
 Requirement Project UTS
 
+Landing Page :
+-Button Login & Register ✔
+
+Register
+-Create Account ✔
+-Default Level : Customer✔
+
+Login
+-Sign In ✔
+
+Dashboard :
+-Selamat dating 'username' ✔
+-Preview dari tiap menu ✔
+
 User :
 -Create Ajax ✔
 -Edit Ajax ✔
