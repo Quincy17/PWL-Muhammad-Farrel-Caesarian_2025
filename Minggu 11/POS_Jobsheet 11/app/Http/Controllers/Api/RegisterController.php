@@ -14,11 +14,23 @@ class RegisterController extends Controller
             'username' => 'required|string|max:255|unique:m_user',
             'nama' => 'required|string|max:255',
             'password' => 'required|string|min:6|confirmed',
-            'level_id' => 'required'
+            'level_id' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if($validator->fails()){
             return response()->json($validator->errors(), 422);
+        }
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $image->store('images', 'public');
+        } else {
+            return response()->json([
+                'success' => 'false',
+                'message' => 'Image upload failed'
+            ], 422);
         }
 
         //create user
@@ -26,7 +38,8 @@ class RegisterController extends Controller
             'username' => $request->username,
             'nama' => $request->nama,
             'password' => bcrypt($request->password),
-            'level_id' => $request->level_id
+            'level_id' => $request->level_id,
+            'image' => $image->hashName(),
         ]);
 
         if($user){
