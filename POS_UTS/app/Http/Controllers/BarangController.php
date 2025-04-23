@@ -25,8 +25,14 @@ class BarangController extends Controller
 
     public function list(Request $request)
     {
-        $barangs = BarangModel::select('barang_id', 'kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual')
+        $barangs = BarangModel::select('barang_id', 'kategori_id', 'barang_kode', 'barang_nama', 'harga_beli', 'harga_jual','jumlah_barang')
             ->with('kategori');
+
+        $request->stok_jumlah;
+        foreach ($barangs as $barang) {
+            
+            $barang->jumlah_barang = $barang->stok()->sum('stok_jumlah');
+        }
 
         if ($request->kategori_id) {
             $barangs->where('kategori_id', $request->kategori_id);
@@ -147,7 +153,8 @@ class BarangController extends Controller
                  'barang_nama' => 'required|string|max:100',
                  'harga_beli' => 'required|integer',
                  'harga_jual' => 'required|integer',
-                 'kategori_id' => 'required|integer'
+                 'kategori_id' => 'required|integer',
+                 'jumlah_barang' => 'required|integer'
              ];
  
              // use Illuminate\Support\Facades\Validator;

@@ -17,6 +17,7 @@ class BarangModel extends Model
         'barang_nama',
         'harga_beli',
         'harga_jual',
+        'jumlah_barang',
     ]; // Kolom-kolom yang dapat diisi secara massal
 
     // Relasi ke model Kategori

@@ -34,6 +34,7 @@
                         <th>Kategori</th>
                         <th>Harga Beli</th>
                         <th>Harga Jual</th>
+                        <th>Jumlah Barang</th>
                         @if (Auth::user()->level_id != 5)
                             <th>Aksi</th>
                         @endif      
@@ -105,6 +106,13 @@
                         orderable: true,
                         searchable: true
                     },
+                    {
+                        data: "jumlah_barang",
+                        className: "text-right",
+                        orderable: true,
+                        searchable: true
+                    },
+                    
                     @if (Auth::user()->level_id != 5)
                     {
                         data: "aksi",

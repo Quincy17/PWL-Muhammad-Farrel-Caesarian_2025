@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\BarangModel;
 use App\Models\PenjualanModel;
+use App\Models\StokModel;
 use Illuminate\Support\Facades\Auth;
 
 class SalesDetailController extends Controller
@@ -224,6 +225,7 @@ class SalesDetailController extends Controller
                 'penjualan_id'  => ['required', 'integer', 'exists:t_penjualan,penjualan_id'], // validasi supplier
                 'harga' => ['required', 'integer', 'min:1'],
                 'jumlah'  => ['required', 'integer', 'min:1'],
+
             ];
 
             $validator = Validator::make($request->all(), $rules);
@@ -244,6 +246,12 @@ class SalesDetailController extends Controller
                 'message' => 'Data Penjualan Detail berhasil disimpan.',
             ]);
         }
+
+        StokModel::with('barang')->where('barang_id', $request->barang_id)->decrement('stok', $request->stok_jumlah);
+        return response()->json([
+            'status'  => true,
+            'message' => 'Data Penjualan Detail berhasil disimpan.',
+        ]);
     }
 
     public function confirm_ajax(string $id)
